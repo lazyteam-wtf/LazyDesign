@@ -2,7 +2,7 @@
 
 LazyDesign is a modern Interface Design Language for focused software work.
 
-Current status: `v0.2.2` core contract freeze.
+Current status: `v0.3.0` primitive system foundation.
 
 It combines:
 
@@ -18,7 +18,7 @@ LazyDesign is not a landing page or a visual demo. It is evolving from a design 
 
 ## Runtime Direction
 
-The v0.2 foundation introduces the first core package layer:
+The core package layer includes:
 
 - `src/core/tokens.ts` - semantic token references and base token values
 - `src/core/theme.ts` - `createTheme`, `applyTheme`, and CSS variable serialization
@@ -27,6 +27,7 @@ The v0.2 foundation introduces the first core package layer:
 - `src/core/registry.ts` - token metadata for docs, IDE hints, Figma sync, and AI codegen
 - `src/core/radius.ts` - professional and expressive radius scales
 - `src/core/motion.ts` - motion durations, easing, and named presets
+- `src/primitives/` - Box, Stack, Text, Surface, Divider, and Spacer
 
 The public token contract is namespaced:
 
@@ -58,10 +59,42 @@ User input
 
 Component CSS consumes `--ld-component-*` tokens first. Future React components should not directly consume raw hex values, `--md-*` variables, or primitive palette values.
 
+## Primitive Layer
+
+v0.3.0 introduces the first React primitive layer. These are foundation elements, not product components.
+
+```tsx
+import { Stack, Surface, Text } from "lazydesign/primitives";
+import "lazydesign/primitives/styles.css";
+
+export function Panel() {
+  return (
+    <Surface level="container" padding="4">
+      <Stack gap="3">
+        <Text variant="heading-md">Primitive System</Text>
+        <Text tone="muted">Built on LazyDesign tokens.</Text>
+      </Stack>
+    </Surface>
+  );
+}
+```
+
+Implemented primitives:
+
+- `Box`
+- `Stack`
+- `Text`
+- `Surface`
+- `Divider`
+- `Spacer`
+
+Product components such as `Button`, `Input`, and `Card` still belong to later phases.
+
 ## Files
 
 - `src/App.tsx` - interactive specification workspace
 - `src/core/` - LazyDesign core token and theme runtime
+- `src/primitives/` - foundation primitive React layer
 - `design/` - constitution, principles, token policy, and component policy
 - `src/color.ts` - compatibility wrapper around the core theme runtime
 - `src/styles.css` - flat-first LazyDesign interface styling

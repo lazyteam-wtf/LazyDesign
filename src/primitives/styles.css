@@ -1,0 +1,100 @@
+.ld-box {
+  box-sizing: border-box;
+  min-width: 0;
+  margin:
+    var(--ld-box-margin-y, var(--ld-box-margin, 0))
+    var(--ld-box-margin-x, var(--ld-box-margin, 0));
+  padding:
+    var(--ld-box-padding-y, var(--ld-box-padding, 0))
+    var(--ld-box-padding-x, var(--ld-box-padding, 0));
+  border: var(--ld-box-border-width, 0) solid var(--ld-box-border-color, transparent);
+  border-radius: var(--ld-box-radius, 0);
+  background: var(--ld-box-background, transparent);
+  color: var(--ld-box-foreground, inherit);
+}
+
+.ld-stack {
+  display: flex;
+  flex-direction: var(--ld-stack-direction, column);
+  flex-wrap: var(--ld-stack-wrap, nowrap);
+  align-items: var(--ld-stack-align, stretch);
+  justify-content: var(--ld-stack-justify, flex-start);
+  gap: var(--ld-stack-row-gap, var(--ld-stack-gap, 0)) var(--ld-stack-column-gap, var(--ld-stack-gap, 0));
+}
+
+.ld-text {
+  margin: 0;
+  color: var(--ld-text-color, var(--ld-component-text-primary));
+  font: var(--ld-text-font, var(--ld-typography-body-md));
+  letter-spacing: 0;
+  text-align: var(--ld-text-align, start);
+}
+
+.ld-text[data-balance] {
+  text-wrap: balance;
+}
+
+.ld-text--truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ld-text--clamp {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: var(--ld-text-line-clamp);
+}
+
+.ld-surface {
+  isolation: isolate;
+}
+
+.ld-surface--interactive {
+  cursor: pointer;
+  transition:
+    background-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    border-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard);
+}
+
+.ld-surface--interactive:hover {
+  background: color-mix(in srgb, var(--ld-box-background, transparent), var(--ld-component-control-hover) 100%);
+  border-color: var(--ld-component-control-border);
+}
+
+.ld-divider {
+  flex: none;
+  align-self: stretch;
+  background: var(--ld-component-surface-border);
+}
+
+.ld-divider[data-orientation="horizontal"] {
+  width: 100%;
+  height: 1px;
+}
+
+.ld-divider[data-orientation="vertical"] {
+  width: 1px;
+  min-height: 100%;
+}
+
+.ld-spacer {
+  flex: none;
+  pointer-events: none;
+}
+
+.ld-spacer[data-axis="block"] {
+  block-size: var(--ld-spacer-size, var(--ld-space-4));
+}
+
+.ld-spacer[data-axis="inline"] {
+  display: inline-block;
+  inline-size: var(--ld-spacer-size, var(--ld-space-4));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-surface--interactive {
+    transition-duration: var(--ld-motion-duration-instant);
+  }
+}

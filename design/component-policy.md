@@ -1,7 +1,7 @@
 # LazyDesign Component Policy
 
-Status: stable draft  
-Next implementation phase: v0.3.0 Component Foundation Layer
+Status: stable draft
+Current implementation phase: v0.3.0 Component Foundation Layer
 
 LazyDesign components are not allowed to bypass the runtime contract. They are composed from primitives, component tokens, typed props, accessible behavior, and motion recipes.
 
@@ -16,13 +16,14 @@ Primitive
   -> Application
 ```
 
-v0.3.0 starts with:
+v0.3.0 implements:
 
 - `Box`
 - `Stack`
 - `Surface`
 - `Text`
 - `Divider`
+- `Spacer`
 
 Then:
 
@@ -87,3 +88,5 @@ Implementation adapters may use GSAP, Web Animations API, Motion One, or Framer 
 `Text` centralizes typography variants, weight, tone, truncation, and semantic element mapping.
 
 `Divider` centralizes border hierarchy, orientation, and decorative versus semantic behavior.
+
+`Spacer` centralizes intentional empty space and must only resolve through spacing tokens.

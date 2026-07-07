@@ -1,8 +1,8 @@
 # LazyDesign Specification
 
-Version: 0.2.2
-Status: Core Contract Freeze
-Scope: Design language, token runtime, theme resolver, component-token contract, motion recipes
+Version: 0.3.0
+Status: Primitive System Foundation
+Scope: Design language, token runtime, theme resolver, component-token contract, motion recipes, primitive React layer
 
 LazyDesign is a flat-first adaptive interface language for focused software work. It is moving from a written specification into an executable design-system runtime.
 
@@ -24,6 +24,7 @@ Idea
   -> Theme Engine             stable runtime draft
   -> Token Governance         v0.2.2
   -> Component Token Layer    v0.2.2
+  -> Primitive System         v0.3.0
   -> Component Runtime        not started
   -> Production Library       not started
 ```
@@ -36,8 +37,9 @@ Current evaluation:
 | Token Architecture | 100% |
 | Theme Engine | 85% |
 | Motion Architecture | 70% |
+| Primitive System | 35% |
 | Component System | 0% |
-| Documentation | 75% |
+| Documentation | 80% |
 
 ## Core Contract
 
@@ -201,15 +203,54 @@ GSAP and ScrollTrigger may be used as adapters. Component APIs must not expose G
 
 Do not start with `Button`.
 
-v0.3.0 begins with the foundation primitives:
+v0.3.0 implements the foundation primitives:
 
 - `Box`
 - `Stack`
 - `Surface`
 - `Text`
 - `Divider`
+- `Spacer`
 
 These primitives validate the runtime contract. Product components such as `Button`, `Input`, and `Card` come after primitives prove that tokens, theme switching, density, shape, and motion remain stable.
+
+## Primitive API
+
+Primitive styles are imported explicitly:
+
+```tsx
+import { Box, Stack, Surface, Text, Divider, Spacer } from "lazydesign/primitives";
+import "lazydesign/primitives/styles.css";
+```
+
+`Box` is the base polymorphic container. It maps spacing, radius, surface, and border props to LazyDesign CSS variables.
+
+```tsx
+<Box padding="4" radius="medium" surface="container" border />
+```
+
+`Stack` owns flex direction, gap, alignment, justification, and wrapping.
+
+```tsx
+<Stack gap="3" direction="column" align="stretch" />
+```
+
+`Text` owns typography variants and text tones.
+
+```tsx
+<Text variant="heading-md">Contract first</Text>
+<Text tone="muted">No raw typography decisions in app code.</Text>
+```
+
+`Surface` validates the flat-first hierarchy.
+
+```tsx
+<Surface level="container" padding="4" />
+```
+
+`Divider` centralizes border hierarchy and orientation. `Spacer` centralizes intentional empty space.
+
+Primitive CSS consumes component and foundation tokens. It must not consume raw colors, `--md-*` variables, or compatibility aliases.
 
 ## LazyDesign Refusals
 
@@ -233,6 +274,8 @@ LazyDesign refuses:
 - `src/core/color.ts`: Monet-powered color roles
 - `src/core/components.ts`: component-token contract
 - `src/core/motion.ts`: motion tokens and recipes
+- `src/primitives/`: primitive React layer
 - `design/constitution.md`: non-negotiable rules
 - `design/token-policy.md`: token governance policy
 - `design/component-policy.md`: component implementation policy
+- `design/ai-guidelines.md`: AI generation guardrails

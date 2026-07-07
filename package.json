@@ -1,7 +1,7 @@
 {
   "name": "lazydesign",
   "private": true,
-  "version": "0.2.2",
+  "version": "0.3.0",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -10,7 +10,9 @@
     "./tokens": "./src/core/tokens.ts",
     "./components": "./src/core/components.ts",
     "./registry": "./src/core/registry.ts",
-    "./motion": "./src/core/motion.ts"
+    "./motion": "./src/core/motion.ts",
+    "./primitives": "./src/primitives/index.ts",
+    "./primitives/styles.css": "./src/primitives/styles.css"
   },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
