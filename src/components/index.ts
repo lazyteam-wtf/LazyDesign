@@ -4,12 +4,15 @@ export { Code, type CodeProps } from "./Code";
 export { Heading, type HeadingLevel, type HeadingProps, type HeadingSize } from "./Heading";
 export {
   Icon,
-  type IconGlyphProps,
   type IconProps,
+  type LazyIconGlyph,
+  type LazyIconGlyphProps,
+  type LazyIconName,
   type LazyIconSize,
   type LazyIconTone,
 } from "./Icon";
-export { Input, type InputProps } from "./Input";
+export { getIcon, listIcons, registerIcon, lazyDefaultIcons } from "./icon-registry";
+export { Input, type InputProps, type LazyInputState } from "./Input";
 export {
   type LazyComponentSize,
   type LazyIconSlot,

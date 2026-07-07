@@ -1,19 +1,13 @@
-import { forwardRef, type ComponentPropsWithoutRef, type ComponentType, type ReactNode } from "react";
+import { forwardRef, type ComponentPropsWithoutRef, type ReactNode } from "react";
+import { getIcon, type LazyIconGlyph, type LazyIconGlyphProps, type LazyIconName } from "./icon-registry";
 import { cx } from "../primitives/utils";
 
 export type LazyIconTone = "primary" | "muted" | "danger" | "inherit";
 export type LazyIconSize = "sm" | "md" | "lg";
 
-export type IconGlyphProps = {
-  "aria-hidden"?: boolean;
-  className?: string;
-  focusable?: boolean | "false" | "true";
-  size?: number | string;
-  strokeWidth?: number | string;
-};
-
 export type IconProps = Omit<ComponentPropsWithoutRef<"span">, "color" | "children"> & {
-  glyph?: ComponentType<IconGlyphProps>;
+  name?: LazyIconName | (string & {});
+  glyph?: LazyIconGlyph;
   children?: ReactNode;
   label?: string;
   tone?: LazyIconTone;
@@ -28,6 +22,7 @@ export const Icon = forwardRef<HTMLSpanElement, IconProps>(function Icon(
     decorative,
     glyph: Glyph,
     label,
+    name,
     size = "md",
     tone = "inherit",
     ...props
@@ -35,6 +30,8 @@ export const Icon = forwardRef<HTMLSpanElement, IconProps>(function Icon(
   ref,
 ) {
   const isDecorative = decorative ?? !label;
+  const RegisteredGlyph = name ? getIcon(name) : undefined;
+  const ResolvedGlyph = Glyph ?? RegisteredGlyph;
 
   return (
     <span
@@ -43,11 +40,18 @@ export const Icon = forwardRef<HTMLSpanElement, IconProps>(function Icon(
       aria-label={isDecorative ? undefined : label}
       className={cx("ld-icon", className)}
       data-size={size}
+      data-name={name}
       data-tone={tone}
       ref={ref}
       role={isDecorative ? undefined : "img"}
     >
-      {Glyph ? <Glyph aria-hidden={true} className="ld-icon__glyph" focusable="false" size="1em" /> : children}
+      {ResolvedGlyph ? (
+        <ResolvedGlyph aria-hidden={true} className="ld-icon__glyph" focusable="false" size="1em" />
+      ) : (
+        children
+      )}
     </span>
   );
 });
+
+export type { LazyIconGlyph, LazyIconGlyphProps, LazyIconName };

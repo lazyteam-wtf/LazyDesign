@@ -52,6 +52,10 @@ export const lazyComponentTokenVars = {
     primaryForeground: "--ld-component-button-primary-foreground",
     primaryBackgroundHover: "--ld-component-button-primary-background-hover",
     primaryBackgroundPressed: "--ld-component-button-primary-background-pressed",
+    secondaryBackground: "--ld-component-button-secondary-background",
+    secondaryForeground: "--ld-component-button-secondary-foreground",
+    secondaryBackgroundHover: "--ld-component-button-secondary-background-hover",
+    secondaryBackgroundPressed: "--ld-component-button-secondary-background-pressed",
     dangerBackground: "--ld-component-button-danger-background",
     dangerForeground: "--ld-component-button-danger-foreground",
     dangerBackgroundHover: "--ld-component-button-danger-background-hover",
@@ -78,6 +82,8 @@ export const lazyComponentTokenVars = {
     border: "--ld-component-badge-border",
     primaryBackground: "--ld-component-badge-primary-background",
     primaryForeground: "--ld-component-badge-primary-foreground",
+    secondaryBackground: "--ld-component-badge-secondary-background",
+    secondaryForeground: "--ld-component-badge-secondary-foreground",
     dangerBackground: "--ld-component-badge-danger-background",
     dangerForeground: "--ld-component-badge-danger-foreground",
     radius: "--ld-component-badge-radius",
@@ -148,6 +154,10 @@ export type LazyComponentTheme = {
     primaryForeground: string;
     primaryBackgroundHover: string;
     primaryBackgroundPressed: string;
+    secondaryBackground: string;
+    secondaryForeground: string;
+    secondaryBackgroundHover: string;
+    secondaryBackgroundPressed: string;
     dangerBackground: string;
     dangerForeground: string;
     dangerBackgroundHover: string;
@@ -174,6 +184,8 @@ export type LazyComponentTheme = {
     border: string;
     primaryBackground: string;
     primaryForeground: string;
+    secondaryBackground: string;
+    secondaryForeground: string;
     dangerBackground: string;
     dangerForeground: string;
     radius: string;
@@ -244,6 +256,10 @@ export function createComponentTheme(input: LazyComponentThemeInput): LazyCompon
       primaryForeground: vars[lazyComponentTokenVars.button.primaryForeground],
       primaryBackgroundHover: vars[lazyComponentTokenVars.button.primaryBackgroundHover],
       primaryBackgroundPressed: vars[lazyComponentTokenVars.button.primaryBackgroundPressed],
+      secondaryBackground: vars[lazyComponentTokenVars.button.secondaryBackground],
+      secondaryForeground: vars[lazyComponentTokenVars.button.secondaryForeground],
+      secondaryBackgroundHover: vars[lazyComponentTokenVars.button.secondaryBackgroundHover],
+      secondaryBackgroundPressed: vars[lazyComponentTokenVars.button.secondaryBackgroundPressed],
       dangerBackground: vars[lazyComponentTokenVars.button.dangerBackground],
       dangerForeground: vars[lazyComponentTokenVars.button.dangerForeground],
       dangerBackgroundHover: vars[lazyComponentTokenVars.button.dangerBackgroundHover],
@@ -270,6 +286,8 @@ export function createComponentTheme(input: LazyComponentThemeInput): LazyCompon
       border: vars[lazyComponentTokenVars.badge.border],
       primaryBackground: vars[lazyComponentTokenVars.badge.primaryBackground],
       primaryForeground: vars[lazyComponentTokenVars.badge.primaryForeground],
+      secondaryBackground: vars[lazyComponentTokenVars.badge.secondaryBackground],
+      secondaryForeground: vars[lazyComponentTokenVars.badge.secondaryForeground],
       dangerBackground: vars[lazyComponentTokenVars.badge.dangerBackground],
       dangerForeground: vars[lazyComponentTokenVars.badge.dangerForeground],
       radius: vars[lazyComponentTokenVars.badge.radius],
@@ -333,6 +351,18 @@ export function createComponentVars(input: LazyComponentThemeInput): LazyCssVars
     [lazyComponentTokenVars.button.primaryForeground]: `var(${lazyTokenVars.color.onPrimary})`,
     [lazyComponentTokenVars.button.primaryBackgroundHover]: mixWith(color.primary, color.onPrimary, 8),
     [lazyComponentTokenVars.button.primaryBackgroundPressed]: mixWith(color.primary, color.onPrimary, 14),
+    [lazyComponentTokenVars.button.secondaryBackground]: `var(${lazyTokenVars.color.secondary})`,
+    [lazyComponentTokenVars.button.secondaryForeground]: `var(${lazyTokenVars.color.onSecondary})`,
+    [lazyComponentTokenVars.button.secondaryBackgroundHover]: mixWith(
+      `var(${lazyTokenVars.color.secondary})`,
+      `var(${lazyTokenVars.color.onSecondary})`,
+      8,
+    ),
+    [lazyComponentTokenVars.button.secondaryBackgroundPressed]: mixWith(
+      `var(${lazyTokenVars.color.secondary})`,
+      `var(${lazyTokenVars.color.onSecondary})`,
+      14,
+    ),
     [lazyComponentTokenVars.button.dangerBackground]: `var(${lazyTokenVars.color.error})`,
     [lazyComponentTokenVars.button.dangerForeground]: `var(${lazyTokenVars.color.onError})`,
     [lazyComponentTokenVars.button.dangerBackgroundHover]: mixWith(
@@ -363,6 +393,8 @@ export function createComponentVars(input: LazyComponentThemeInput): LazyCssVars
     [lazyComponentTokenVars.badge.border]: `var(${lazyTokenVars.color.borderMuted})`,
     [lazyComponentTokenVars.badge.primaryBackground]: `var(${lazyTokenVars.color.primaryContainer})`,
     [lazyComponentTokenVars.badge.primaryForeground]: `var(${lazyTokenVars.color.onPrimaryContainer})`,
+    [lazyComponentTokenVars.badge.secondaryBackground]: `var(${lazyTokenVars.color.secondaryContainer})`,
+    [lazyComponentTokenVars.badge.secondaryForeground]: `var(${lazyTokenVars.color.onSecondaryContainer})`,
     [lazyComponentTokenVars.badge.dangerBackground]: `color-mix(in srgb, var(${lazyTokenVars.color.error}), transparent 86%)`,
     [lazyComponentTokenVars.badge.dangerForeground]: `var(${lazyTokenVars.color.error})`,
     [lazyComponentTokenVars.badge.radius]: `var(${lazyTokenVars.shape.cornerFull})`,

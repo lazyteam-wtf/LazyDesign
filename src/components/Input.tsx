@@ -2,11 +2,14 @@ import { forwardRef, useId, type ReactNode } from "react";
 import { type LazyComponentSize, type LazyIconSlot, type NativeInputProps } from "./types";
 import { cx } from "../primitives/utils";
 
+export type LazyInputState = "default" | "error";
+
 export type InputProps = NativeInputProps & {
   label?: ReactNode;
   description?: ReactNode;
   error?: ReactNode;
   invalid?: boolean;
+  state?: LazyInputState;
   inputSize?: LazyComponentSize;
   iconStart?: LazyIconSlot;
   iconEnd?: LazyIconSlot;
@@ -24,6 +27,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     inputSize = "md",
     invalid,
     label,
+    state = "default",
     ...props
   },
   ref,
@@ -32,16 +36,22 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   const inputId = id ?? generatedId;
   const descriptionId = description ? `${inputId}-description` : undefined;
   const errorId = error ? `${inputId}-error` : undefined;
-  const isInvalid = invalid || Boolean(error);
+  const resolvedState: LazyInputState = invalid || error ? "error" : state;
+  const isInvalid = resolvedState === "error";
 
   return (
-    <div className={cx("ld-field", className)} data-disabled={disabled ? "" : undefined} data-invalid={isInvalid ? "" : undefined}>
+    <div
+      className={cx("ld-field", className)}
+      data-disabled={disabled ? "" : undefined}
+      data-invalid={isInvalid ? "" : undefined}
+      data-state={resolvedState}
+    >
       {label ? (
         <label className="ld-field__label" htmlFor={inputId}>
           {label}
         </label>
       ) : null}
-      <div className="ld-input" data-size={inputSize}>
+      <div className="ld-input" data-size={inputSize} data-state={resolvedState}>
         {iconStart ? <span className="ld-input__icon">{iconStart}</span> : null}
         <input
           {...props}

@@ -40,6 +40,12 @@
   --ld-button-border: var(--ld-component-button-primary-background);
 }
 
+.ld-button[data-intent="secondary"][data-variant="solid"] {
+  --ld-button-background: var(--ld-component-button-secondary-background);
+  --ld-button-foreground: var(--ld-component-button-secondary-foreground);
+  --ld-button-border: var(--ld-component-button-secondary-background);
+}
+
 .ld-button[data-intent="danger"][data-variant="solid"] {
   --ld-button-background: var(--ld-component-button-danger-background);
   --ld-button-foreground: var(--ld-component-button-danger-foreground);
@@ -57,6 +63,11 @@
   --ld-button-foreground: var(--ld-component-badge-primary-foreground);
 }
 
+.ld-button[data-intent="secondary"][data-variant="soft"] {
+  --ld-button-background: var(--ld-component-badge-secondary-background);
+  --ld-button-foreground: var(--ld-component-badge-secondary-foreground);
+}
+
 .ld-button[data-intent="danger"][data-variant="soft"] {
   --ld-button-background: var(--ld-component-badge-danger-background);
   --ld-button-foreground: var(--ld-component-badge-danger-foreground);
@@ -69,6 +80,11 @@
 .ld-button[data-intent="primary"][data-variant="outline"],
 .ld-button[data-intent="primary"][data-variant="ghost"] {
   --ld-button-foreground: var(--ld-component-icon-primary);
+}
+
+.ld-button[data-intent="secondary"][data-variant="outline"],
+.ld-button[data-intent="secondary"][data-variant="ghost"] {
+  --ld-button-foreground: var(--ld-component-badge-secondary-foreground);
 }
 
 .ld-button[data-intent="danger"][data-variant="outline"],
@@ -89,11 +105,27 @@
   background: var(--ld-component-button-primary-background-hover);
 }
 
+.ld-button[data-intent="secondary"][data-variant="solid"]:hover:not(:disabled) {
+  background: var(--ld-component-button-secondary-background-hover);
+}
+
 .ld-button[data-intent="danger"][data-variant="solid"]:hover:not(:disabled) {
   background: var(--ld-component-button-danger-background-hover);
 }
 
-.ld-button[data-motion="soft"]:active:not(:disabled) {
+.ld-button[data-intent="primary"][data-variant="solid"]:active:not(:disabled) {
+  background: var(--ld-component-button-primary-background-pressed);
+}
+
+.ld-button[data-intent="secondary"][data-variant="solid"]:active:not(:disabled) {
+  background: var(--ld-component-button-secondary-background-pressed);
+}
+
+.ld-button[data-intent="danger"][data-variant="solid"]:active:not(:disabled) {
+  background: var(--ld-component-button-danger-background-pressed);
+}
+
+.ld-button[data-motion="press"]:active:not(:disabled) {
   transform: translateY(1px);
 }
 
@@ -111,6 +143,11 @@
 .ld-button__content,
 .ld-badge__content {
   min-width: 0;
+}
+
+.ld-button__icon {
+  display: inline-flex;
+  flex: none;
 }
 
 .ld-button__spinner {
@@ -232,6 +269,12 @@
   --ld-badge-border: transparent;
 }
 
+.ld-badge[data-intent="secondary"] {
+  --ld-badge-background: var(--ld-component-badge-secondary-background);
+  --ld-badge-foreground: var(--ld-component-badge-secondary-foreground);
+  --ld-badge-border: transparent;
+}
+
 .ld-badge[data-intent="danger"] {
   --ld-badge-background: var(--ld-component-badge-danger-background);
   --ld-badge-foreground: var(--ld-component-badge-danger-foreground);
@@ -244,6 +287,11 @@
 .ld-badge[data-variant="solid"][data-intent="primary"] {
   --ld-badge-background: var(--ld-component-button-primary-background);
   --ld-badge-foreground: var(--ld-component-button-primary-foreground);
+}
+
+.ld-badge[data-variant="solid"][data-intent="secondary"] {
+  --ld-badge-background: var(--ld-component-button-secondary-background);
+  --ld-badge-foreground: var(--ld-component-button-secondary-foreground);
 }
 
 .ld-badge[data-variant="solid"][data-intent="danger"] {

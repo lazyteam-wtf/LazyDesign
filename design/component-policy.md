@@ -1,7 +1,7 @@
 # LazyDesign Component Policy
 
 Status: stable draft
-Current implementation phase: v0.4.0 React Component Foundation Layer
+Current implementation phase: v0.4.1 React Component Foundation Layer
 
 LazyDesign components are not allowed to bypass the runtime contract. They are composed from primitives, component tokens, typed props, accessible behavior, and motion recipes.
 
@@ -31,6 +31,8 @@ v0.4.0 implements the first React components:
 - `Button`
 - `Input`
 - `Badge`
+
+v0.4.1 hardens the first component APIs before adding larger components.
 
 Next component phases may add `Card`, `Dialog`, `Drawer`, `Toast`, `Tooltip`, `Table`, `Tabs`, and navigation patterns.
 

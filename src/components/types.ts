@@ -1,8 +1,8 @@
 import { type ComponentPropsWithoutRef, type ReactNode } from "react";
 
 export type LazyComponentSize = "sm" | "md" | "lg";
-export type LazyIntent = "neutral" | "primary" | "danger";
-export type LazyMotion = "none" | "soft";
+export type LazyIntent = "neutral" | "primary" | "secondary" | "danger";
+export type LazyMotion = "none" | "soft" | "press";
 
 export type LazyIconSlot = ReactNode;
 

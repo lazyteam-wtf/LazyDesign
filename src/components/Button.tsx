@@ -10,6 +10,7 @@ export type ButtonProps = NativeButtonProps & {
   size?: LazyComponentSize;
   motion?: LazyMotion;
   loading?: boolean;
+  loadingLabel?: string;
   iconStart?: LazyIconSlot;
   iconEnd?: LazyIconSlot;
 };
@@ -23,7 +24,8 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     iconStart,
     intent = "neutral",
     loading = false,
-    motion = "soft",
+    loadingLabel = "Loading",
+    motion = "press",
     size = "md",
     type = "button",
     variant = "solid",
@@ -37,19 +39,30 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     <button
       {...props}
       aria-busy={loading || undefined}
+      aria-label={loading && !children ? loadingLabel : props["aria-label"]}
       className={cx("ld-button", className)}
       data-intent={intent}
       data-loading={loading ? "" : undefined}
       data-motion={motion}
       data-size={size}
+      data-state={loading ? "loading" : isDisabled ? "disabled" : "idle"}
       data-variant={variant}
       disabled={isDisabled}
       ref={ref}
       type={type}
     >
-      {loading ? <span aria-hidden="true" className="ld-button__spinner" /> : iconStart}
+      {loading ? <span aria-hidden="true" className="ld-button__spinner" /> : wrapIcon(iconStart, "start")}
       {children ? <span className="ld-button__content">{children}</span> : null}
-      {iconEnd}
+      {wrapIcon(iconEnd, "end")}
     </button>
   );
 });
+
+function wrapIcon(icon: LazyIconSlot, position: "start" | "end") {
+  if (!icon) return null;
+  return (
+    <span aria-hidden="true" className="ld-button__icon" data-position={position}>
+      {icon}
+    </span>
+  );
+}

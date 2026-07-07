@@ -2,7 +2,7 @@
 
 LazyDesign is a modern adaptive React UI framework and interface design language for focused software work.
 
-Current status: `v0.4.0` React component system foundation.
+Current status: `v0.4.1` React component quality hardening.
 
 It combines:
 
@@ -96,7 +96,7 @@ v0.4.0 introduces the first developer-facing React components.
 
 ```tsx
 import { LazyProvider } from "lazydesign/react";
-import { Badge, Button, Heading, Input } from "lazydesign/components";
+import { Badge, Button, Heading, Icon, Input } from "lazydesign/components";
 import "lazydesign/primitives/styles.css";
 import "lazydesign/components/styles.css";
 
@@ -104,8 +104,8 @@ export function Example() {
   return (
     <LazyProvider theme={{ seed: "#6750A4", mode: "dark" }}>
       <Heading level={1}>Launch workspace</Heading>
-      <Input label="Project name" placeholder="LazyDesign" />
-      <Button intent="primary" motion="soft">Launch</Button>
+      <Input label="Project name" placeholder="LazyDesign" state="default" />
+      <Button intent="primary" motion="press" iconStart={<Icon name="upload" />}>Launch</Button>
       <Badge intent="primary">v0.4</Badge>
     </LazyProvider>
   );
@@ -120,6 +120,12 @@ Implemented components:
 - `Button`
 - `Input`
 - `Badge`
+
+v0.4.1 hardens the first component APIs:
+
+- `Button` supports `intent="neutral | primary | secondary | danger"` and `motion="none | soft | press"`
+- `Input` supports explicit `state="default | error"` while preserving `error` and `invalid`
+- `Icon` supports `name`, `glyph`, and `registerIcon()` so the public API is not tied to a specific icon package
 
 Larger components such as `Dialog`, `Toast`, `Table`, and `Tabs` still belong to later phases.
 

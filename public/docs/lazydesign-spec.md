@@ -1,7 +1,7 @@
 # LazyDesign Specification
 
-Version: 0.4.0
-Status: React Component System Foundation
+Version: 0.4.1
+Status: React Component Quality Hardening
 Scope: Design language, token runtime, theme resolver, component-token contract, motion recipes, primitive React layer, first React components
 
 LazyDesign is a flat-first adaptive interface language for focused software work. It is moving from a written specification into an executable design-system runtime.
@@ -25,7 +25,7 @@ Idea
   -> Token Governance         v0.2.2
   -> Component Token Layer    v0.2.2
   -> Primitive System         v0.3.0
-  -> Component Runtime        v0.4.0 first layer
+  -> Component Runtime        v0.4.1 first layer hardening
   -> Production Library       not started
 ```
 
@@ -38,7 +38,7 @@ Current evaluation:
 | Theme Engine | 85% |
 | Motion Architecture | 70% |
 | Primitive System | 55% |
-| Component System | 15% |
+| Component System | 25% |
 | Documentation | 80% |
 
 ## Core Contract
@@ -226,6 +226,13 @@ v0.4.0 begins the React component layer:
 
 This layer is intentionally small. Larger behavior-heavy components such as `Dialog`, `Toast`, `Tooltip`, `Table`, `Tabs`, and `Menu` come after the first component API settles.
 
+v0.4.1 hardens the first component layer:
+
+- `Button` supports `neutral`, `primary`, `secondary`, and `danger` intent.
+- `Button` supports `motion="none | soft | press"` without exposing an animation adapter.
+- `Input` supports explicit `state="default | error"` while keeping `error` and `invalid` ergonomic.
+- `Icon` supports a registry-backed `name` API plus `registerIcon()` and `glyph` escape hatches.
+
 ## Primitive API
 
 Primitive styles are imported explicitly:
@@ -270,7 +277,7 @@ Component styles are imported explicitly:
 
 ```tsx
 import { LazyProvider } from "lazydesign/react";
-import { Badge, Button, Heading, Input } from "lazydesign/components";
+import { Badge, Button, Heading, Icon, Input } from "lazydesign/components";
 import "lazydesign/primitives/styles.css";
 import "lazydesign/components/styles.css";
 ```
@@ -286,7 +293,7 @@ import "lazydesign/components/styles.css";
 `Button` uses `intent`, `variant`, `size`, and `motion` instead of Ant-style `type`.
 
 ```tsx
-<Button intent="primary" size="md" motion="soft">
+<Button intent="primary" size="md" motion="press" iconStart={<Icon name="upload" />}>
   Launch
 </Button>
 ```
@@ -294,7 +301,13 @@ import "lazydesign/components/styles.css";
 `Input` owns label, description, error, invalid state, and ARIA relationships.
 
 ```tsx
-<Input label="Project name" error="Required" />
+<Input label="Project name" state="error" error="Required" />
+```
+
+`Icon` resolves registry names instead of exposing a specific icon package as public API.
+
+```tsx
+<Icon name="search" />
 ```
 
 `Badge`, `Icon`, `Heading`, and `Code` are the first typography and feedback-adjacent building blocks.
