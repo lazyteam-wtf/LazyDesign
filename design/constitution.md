@@ -1,7 +1,7 @@
 # LazyDesign Constitution
 
 Status: stable draft  
-Applies to: core runtime, tokens, primitives, components, docs, AI-generated code
+Applies to: core runtime, tokens, primitives, components, docs, and release tooling
 
 LazyDesign is an interface design language before it is a component library. Every implementation must preserve the runtime contract that lets brand, accessibility, density, motion, and component behavior resolve predictably.
 

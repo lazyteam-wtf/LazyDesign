@@ -1,0 +1,338 @@
+.ld-button {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ld-component-button-gap);
+  min-width: max-content;
+  min-height: var(--ld-component-button-height);
+  padding: 0 var(--ld-component-button-padding-x);
+  border: 1px solid var(--ld-button-border, var(--ld-component-button-border));
+  border-radius: var(--ld-component-button-radius);
+  background: var(--ld-button-background, var(--ld-component-button-background));
+  color: var(--ld-button-foreground, var(--ld-component-button-foreground));
+  font: var(--ld-typography-label);
+  letter-spacing: 0;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    border-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    transform var(--ld-motion-duration-fast) var(--ld-motion-easing-standard);
+}
+
+.ld-button[data-size="sm"] {
+  min-height: var(--ld-component-control-height-sm);
+  padding-inline: var(--ld-component-control-padding-x-sm);
+}
+
+.ld-button[data-size="lg"] {
+  min-height: var(--ld-component-control-height-lg);
+  padding-inline: var(--ld-component-control-padding-x-lg);
+}
+
+.ld-button[data-intent="primary"][data-variant="solid"] {
+  --ld-button-background: var(--ld-component-button-primary-background);
+  --ld-button-foreground: var(--ld-component-button-primary-foreground);
+  --ld-button-border: var(--ld-component-button-primary-background);
+}
+
+.ld-button[data-intent="danger"][data-variant="solid"] {
+  --ld-button-background: var(--ld-component-button-danger-background);
+  --ld-button-foreground: var(--ld-component-button-danger-foreground);
+  --ld-button-border: var(--ld-component-button-danger-background);
+}
+
+.ld-button[data-variant="soft"] {
+  --ld-button-background: var(--ld-component-badge-background);
+  --ld-button-foreground: var(--ld-component-badge-foreground);
+  --ld-button-border: transparent;
+}
+
+.ld-button[data-intent="primary"][data-variant="soft"] {
+  --ld-button-background: var(--ld-component-badge-primary-background);
+  --ld-button-foreground: var(--ld-component-badge-primary-foreground);
+}
+
+.ld-button[data-intent="danger"][data-variant="soft"] {
+  --ld-button-background: var(--ld-component-badge-danger-background);
+  --ld-button-foreground: var(--ld-component-badge-danger-foreground);
+}
+
+.ld-button[data-variant="outline"] {
+  --ld-button-background: transparent;
+}
+
+.ld-button[data-intent="primary"][data-variant="outline"],
+.ld-button[data-intent="primary"][data-variant="ghost"] {
+  --ld-button-foreground: var(--ld-component-icon-primary);
+}
+
+.ld-button[data-intent="danger"][data-variant="outline"],
+.ld-button[data-intent="danger"][data-variant="ghost"] {
+  --ld-button-foreground: var(--ld-component-icon-danger);
+}
+
+.ld-button[data-variant="ghost"] {
+  --ld-button-background: transparent;
+  --ld-button-border: transparent;
+}
+
+.ld-button:hover:not(:disabled) {
+  background: var(--ld-component-button-background-hover);
+}
+
+.ld-button[data-intent="primary"][data-variant="solid"]:hover:not(:disabled) {
+  background: var(--ld-component-button-primary-background-hover);
+}
+
+.ld-button[data-intent="danger"][data-variant="solid"]:hover:not(:disabled) {
+  background: var(--ld-component-button-danger-background-hover);
+}
+
+.ld-button[data-motion="soft"]:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.ld-button:focus-visible,
+.ld-input:focus-within {
+  outline: none;
+  box-shadow: var(--ld-component-control-focus-ring);
+}
+
+.ld-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.54;
+}
+
+.ld-button__content,
+.ld-badge__content {
+  min-width: 0;
+}
+
+.ld-button__spinner {
+  width: 1em;
+  height: 1em;
+  border: 1.5px solid currentColor;
+  border-right-color: transparent;
+  border-radius: var(--ld-shape-corner-full);
+  animation: ld-spin var(--ld-motion-duration-emphasized) linear infinite;
+}
+
+.ld-field {
+  display: grid;
+  gap: var(--ld-space-2);
+  min-width: 0;
+}
+
+.ld-field__label {
+  color: var(--ld-component-text-primary);
+  font: var(--ld-typography-label);
+}
+
+.ld-field__description {
+  color: var(--ld-component-text-muted);
+  font: var(--ld-typography-body-sm);
+}
+
+.ld-field__error {
+  color: var(--ld-component-icon-danger);
+  font: var(--ld-typography-body-sm);
+}
+
+.ld-input {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-component-control-gap);
+  min-height: var(--ld-component-input-height);
+  padding-inline: var(--ld-component-input-padding-x);
+  border: 1px solid var(--ld-component-input-border);
+  border-radius: var(--ld-component-input-radius);
+  background: var(--ld-component-input-background);
+  color: var(--ld-component-input-foreground);
+  transition:
+    border-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    box-shadow var(--ld-motion-duration-fast) var(--ld-motion-easing-standard);
+}
+
+.ld-input[data-size="sm"] {
+  min-height: var(--ld-component-control-height-sm);
+  padding-inline: var(--ld-component-control-padding-x-sm);
+}
+
+.ld-input[data-size="lg"] {
+  min-height: var(--ld-component-control-height-lg);
+  padding-inline: var(--ld-component-control-padding-x-lg);
+}
+
+.ld-field[data-invalid] .ld-input {
+  border-color: var(--ld-component-input-border-invalid);
+}
+
+.ld-input:focus-within {
+  border-color: var(--ld-component-input-border-focus);
+}
+
+.ld-input__control {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: var(--ld-typography-body-md);
+}
+
+.ld-input__control::placeholder {
+  color: var(--ld-component-input-placeholder);
+}
+
+.ld-input__control:disabled {
+  cursor: not-allowed;
+}
+
+.ld-field[data-disabled] {
+  opacity: 0.6;
+}
+
+.ld-input__icon {
+  display: inline-flex;
+  flex: none;
+  color: var(--ld-component-icon-muted);
+}
+
+.ld-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-space-1);
+  width: fit-content;
+  min-height: 22px;
+  padding-inline: var(--ld-space-2);
+  border: 1px solid var(--ld-badge-border, var(--ld-component-badge-border));
+  border-radius: var(--ld-component-badge-radius);
+  background: var(--ld-badge-background, var(--ld-component-badge-background));
+  color: var(--ld-badge-foreground, var(--ld-component-badge-foreground));
+  font: var(--ld-typography-label);
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.ld-badge[data-size="sm"] {
+  min-height: 18px;
+  padding-inline: var(--ld-space-1);
+  font: var(--ld-typography-body-sm);
+}
+
+.ld-badge[data-intent="primary"] {
+  --ld-badge-background: var(--ld-component-badge-primary-background);
+  --ld-badge-foreground: var(--ld-component-badge-primary-foreground);
+  --ld-badge-border: transparent;
+}
+
+.ld-badge[data-intent="danger"] {
+  --ld-badge-background: var(--ld-component-badge-danger-background);
+  --ld-badge-foreground: var(--ld-component-badge-danger-foreground);
+}
+
+.ld-badge[data-variant="outline"] {
+  --ld-badge-background: transparent;
+}
+
+.ld-badge[data-variant="solid"][data-intent="primary"] {
+  --ld-badge-background: var(--ld-component-button-primary-background);
+  --ld-badge-foreground: var(--ld-component-button-primary-foreground);
+}
+
+.ld-badge[data-variant="solid"][data-intent="danger"] {
+  --ld-badge-background: var(--ld-component-button-danger-background);
+  --ld-badge-foreground: var(--ld-component-button-danger-foreground);
+}
+
+.ld-heading {
+  color: var(--ld-component-text-primary);
+}
+
+.ld-code {
+  border: 1px solid var(--ld-component-code-border);
+  border-radius: var(--ld-component-code-radius);
+  background: var(--ld-component-code-background);
+  color: var(--ld-component-code-foreground);
+  font: var(--ld-typography-code);
+}
+
+code.ld-code {
+  padding: 0 var(--ld-space-1);
+}
+
+.ld-code-block {
+  margin: 0;
+  overflow-x: auto;
+  border: 1px solid var(--ld-component-code-border);
+  border-radius: var(--ld-component-code-radius);
+  background: var(--ld-component-code-background);
+  color: var(--ld-component-code-foreground);
+  padding: var(--ld-space-4);
+}
+
+.ld-code-block .ld-code {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.ld-icon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 1em;
+  height: 1em;
+  color: var(--ld-icon-color, currentColor);
+  line-height: 1;
+}
+
+.ld-icon[data-size="sm"] {
+  font-size: 0.875em;
+}
+
+.ld-icon[data-size="lg"] {
+  font-size: 1.125em;
+}
+
+.ld-icon[data-tone="primary"] {
+  --ld-icon-color: var(--ld-component-icon-primary);
+}
+
+.ld-icon[data-tone="muted"] {
+  --ld-icon-color: var(--ld-component-icon-muted);
+}
+
+.ld-icon[data-tone="danger"] {
+  --ld-icon-color: var(--ld-component-icon-danger);
+}
+
+.ld-icon__glyph {
+  width: 1em;
+  height: 1em;
+}
+
+@keyframes ld-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ld-button,
+  .ld-input {
+    transition-duration: var(--ld-motion-duration-instant);
+  }
+
+  .ld-button__spinner {
+    animation-duration: var(--ld-motion-duration-emphasized);
+  }
+}

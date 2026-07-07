@@ -1,8 +1,8 @@
 # LazyDesign
 
-LazyDesign is a modern Interface Design Language for focused software work.
+LazyDesign is a modern adaptive React UI framework and interface design language for focused software work.
 
-Current status: `v0.3.0` primitive system foundation.
+Current status: `v0.4.0` React component system foundation.
 
 It combines:
 
@@ -24,10 +24,12 @@ The core package layer includes:
 - `src/core/theme.ts` - `createTheme`, `applyTheme`, and CSS variable serialization
 - `src/core/color.ts` - Monet-powered color role generation
 - `src/core/components.ts` - component-token contract without React components
-- `src/core/registry.ts` - token metadata for docs, IDE hints, Figma sync, and AI codegen
+- `src/core/registry.ts` - token metadata for docs, IDE hints, Figma sync, and migration tooling
 - `src/core/radius.ts` - professional and expressive radius scales
 - `src/core/motion.ts` - motion durations, easing, and named presets
 - `src/primitives/` - Box, Stack, Text, Surface, Divider, and Spacer
+- `src/components/` - Heading, Code, Icon, Button, Input, and Badge
+- `src/react/` - React provider and framework entry
 
 The public token contract is namespaced:
 
@@ -88,13 +90,46 @@ Implemented primitives:
 - `Divider`
 - `Spacer`
 
-Product components such as `Button`, `Input`, and `Card` still belong to later phases.
+## Component Layer
+
+v0.4.0 introduces the first developer-facing React components.
+
+```tsx
+import { LazyProvider } from "lazydesign/react";
+import { Badge, Button, Heading, Input } from "lazydesign/components";
+import "lazydesign/primitives/styles.css";
+import "lazydesign/components/styles.css";
+
+export function Example() {
+  return (
+    <LazyProvider theme={{ seed: "#6750A4", mode: "dark" }}>
+      <Heading level={1}>Launch workspace</Heading>
+      <Input label="Project name" placeholder="LazyDesign" />
+      <Button intent="primary" motion="soft">Launch</Button>
+      <Badge intent="primary">v0.4</Badge>
+    </LazyProvider>
+  );
+}
+```
+
+Implemented components:
+
+- `Heading`
+- `Code`
+- `Icon`
+- `Button`
+- `Input`
+- `Badge`
+
+Larger components such as `Dialog`, `Toast`, `Table`, and `Tabs` still belong to later phases.
 
 ## Files
 
 - `src/App.tsx` - interactive specification workspace
 - `src/core/` - LazyDesign core token and theme runtime
 - `src/primitives/` - foundation primitive React layer
+- `src/components/` - first React component layer
+- `src/react/` - provider and React framework entry
 - `design/` - constitution, principles, token policy, and component policy
 - `src/color.ts` - compatibility wrapper around the core theme runtime
 - `src/styles.css` - flat-first LazyDesign interface styling

@@ -49,7 +49,7 @@ type LazyTokenMetadata = {
 };
 ```
 
-The registry in `src/core/registry.ts` is the source for docs, design-token export, Figma sync, IDE hints, and AI code-generation rules.
+The registry in `src/core/registry.ts` is the source for docs, design-token export, Figma sync, IDE hints, and migration tooling.
 
 ## Consumption Rules
 

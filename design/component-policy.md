@@ -1,13 +1,11 @@
 # LazyDesign Component Policy
 
 Status: stable draft
-Current implementation phase: v0.3.0 Component Foundation Layer
+Current implementation phase: v0.4.0 React Component Foundation Layer
 
 LazyDesign components are not allowed to bypass the runtime contract. They are composed from primitives, component tokens, typed props, accessible behavior, and motion recipes.
 
 ## Build Order
-
-The first real component phase is primitives, not product components.
 
 ```txt
 Primitive
@@ -16,7 +14,7 @@ Primitive
   -> Application
 ```
 
-v0.3.0 implements:
+v0.3.0 implemented primitives:
 
 - `Box`
 - `Stack`
@@ -25,11 +23,16 @@ v0.3.0 implements:
 - `Divider`
 - `Spacer`
 
-Then:
+v0.4.0 implements the first React components:
 
+- `Heading`
+- `Code`
+- `Icon`
 - `Button`
 - `Input`
-- `Card`
+- `Badge`
+
+Next component phases may add `Card`, `Dialog`, `Drawer`, `Toast`, `Tooltip`, `Table`, `Tabs`, and navigation patterns.
 
 ## Component Requirements
 
@@ -72,7 +75,7 @@ Forbidden:
 Component APIs use named recipes:
 
 ```tsx
-<Surface motion="enter" />
+<Button motion="soft" />
 ```
 
 Implementation adapters may use GSAP, Web Animations API, Motion One, or Framer Motion internally. Public component APIs do not expose adapter-specific objects.

@@ -1,8 +1,8 @@
 # LazyDesign Specification
 
-Version: 0.3.0
-Status: Primitive System Foundation
-Scope: Design language, token runtime, theme resolver, component-token contract, motion recipes, primitive React layer
+Version: 0.4.0
+Status: React Component System Foundation
+Scope: Design language, token runtime, theme resolver, component-token contract, motion recipes, primitive React layer, first React components
 
 LazyDesign is a flat-first adaptive interface language for focused software work. It is moving from a written specification into an executable design-system runtime.
 
@@ -25,7 +25,7 @@ Idea
   -> Token Governance         v0.2.2
   -> Component Token Layer    v0.2.2
   -> Primitive System         v0.3.0
-  -> Component Runtime        not started
+  -> Component Runtime        v0.4.0 first layer
   -> Production Library       not started
 ```
 
@@ -37,8 +37,8 @@ Current evaluation:
 | Token Architecture | 100% |
 | Theme Engine | 85% |
 | Motion Architecture | 70% |
-| Primitive System | 35% |
-| Component System | 0% |
+| Primitive System | 55% |
+| Component System | 15% |
 | Documentation | 80% |
 
 ## Core Contract
@@ -92,7 +92,7 @@ type LazyTokenMetadata = {
 };
 ```
 
-The registry enables documentation generation, Figma token export, IDE hints, migration checks, and AI-readable design rules.
+The registry enables documentation generation, Figma token export, IDE hints, migration checks, and design-token tooling.
 
 ## Theme API
 
@@ -148,6 +148,9 @@ Current component-token groups:
 - `control`
 - `button`
 - `input`
+- `badge`
+- `icon`
+- `code`
 
 Examples:
 
@@ -201,8 +204,6 @@ GSAP and ScrollTrigger may be used as adapters. Component APIs must not expose G
 
 ## Component Roadmap
 
-Do not start with `Button`.
-
 v0.3.0 implements the foundation primitives:
 
 - `Box`
@@ -213,6 +214,17 @@ v0.3.0 implements the foundation primitives:
 - `Spacer`
 
 These primitives validate the runtime contract. Product components such as `Button`, `Input`, and `Card` come after primitives prove that tokens, theme switching, density, shape, and motion remain stable.
+
+v0.4.0 begins the React component layer:
+
+- `Heading`
+- `Code`
+- `Icon`
+- `Button`
+- `Input`
+- `Badge`
+
+This layer is intentionally small. Larger behavior-heavy components such as `Dialog`, `Toast`, `Tooltip`, `Table`, `Tabs`, and `Menu` come after the first component API settles.
 
 ## Primitive API
 
@@ -252,6 +264,41 @@ import "lazydesign/primitives/styles.css";
 
 Primitive CSS consumes component and foundation tokens. It must not consume raw colors, `--md-*` variables, or compatibility aliases.
 
+## Component API
+
+Component styles are imported explicitly:
+
+```tsx
+import { LazyProvider } from "lazydesign/react";
+import { Badge, Button, Heading, Input } from "lazydesign/components";
+import "lazydesign/primitives/styles.css";
+import "lazydesign/components/styles.css";
+```
+
+`LazyProvider` scopes the resolved theme through CSS variables.
+
+```tsx
+<LazyProvider theme={{ seed: "#6750A4", mode: "dark" }}>
+  <App />
+</LazyProvider>
+```
+
+`Button` uses `intent`, `variant`, `size`, and `motion` instead of Ant-style `type`.
+
+```tsx
+<Button intent="primary" size="md" motion="soft">
+  Launch
+</Button>
+```
+
+`Input` owns label, description, error, invalid state, and ARIA relationships.
+
+```tsx
+<Input label="Project name" error="Required" />
+```
+
+`Badge`, `Icon`, `Heading`, and `Code` are the first typography and feedback-adjacent building blocks.
+
 ## LazyDesign Refusals
 
 LazyDesign refuses:
@@ -275,7 +322,8 @@ LazyDesign refuses:
 - `src/core/components.ts`: component-token contract
 - `src/core/motion.ts`: motion tokens and recipes
 - `src/primitives/`: primitive React layer
+- `src/components/`: first React component layer
+- `src/react/`: React provider and framework entry
 - `design/constitution.md`: non-negotiable rules
 - `design/token-policy.md`: token governance policy
 - `design/component-policy.md`: component implementation policy
-- `design/ai-guidelines.md`: AI generation guardrails
