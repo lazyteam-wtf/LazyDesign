@@ -1,8 +1,15 @@
 {
   "name": "lazydesign",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.1",
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./core": "./src/core/index.ts",
+    "./theme": "./src/core/theme.ts",
+    "./tokens": "./src/core/tokens.ts",
+    "./motion": "./src/core/motion.ts"
+  },
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "tsc --noEmit && vite build",

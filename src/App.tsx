@@ -108,11 +108,11 @@ const spacingTokens = [
 ];
 
 const shapeTokens = [
-  ["--ld-radius-2", "4px", "Inputs in dense data surfaces"],
-  ["--ld-radius-3", "6px", "Buttons, badges, compact controls"],
-  ["--ld-radius-4", "8px", "Default card and menu radius"],
-  ["--ld-radius-5", "12px", "Dialogs, drawers, expressive containers"],
-  ["--ld-radius-full", "999px", "Pills, switches, avatars"],
+  ["--ld-shape-corner-extra-small", "4px", "Inputs in dense data surfaces"],
+  ["--ld-shape-corner-small", "6px", "Buttons, badges, compact controls"],
+  ["--ld-shape-corner-medium", "8px", "Default card and menu radius"],
+  ["--ld-shape-corner-large", "12px", "Dialogs, drawers, expressive containers"],
+  ["--ld-shape-corner-full", "999px", "Pills, switches, avatars"],
 ];
 
 const elevationTokens = [
@@ -577,15 +577,15 @@ theme.apply(document.documentElement);`}</code>
               </div>
               <div className="role-list">
                 {[
-                  ["Primary", "var(--md-primary)", "var(--md-on-primary)"],
-                  ["Secondary", "var(--md-secondary)", "var(--md-on-secondary)"],
-                  ["Tertiary", "var(--md-tertiary)", "var(--md-on-tertiary)"],
-                  ["Surface", "var(--md-surface-container)", "var(--md-on-surface)"],
-                  ["Outline", "var(--md-outline-variant)", "var(--md-on-surface)"],
+                  ["Primary", "var(--ld-color-primary)", "var(--ld-color-on-primary)"],
+                  ["Secondary", "var(--ld-color-secondary)", "var(--ld-color-on-secondary)"],
+                  ["Tertiary", "var(--ld-color-tertiary)", "var(--ld-color-on-tertiary)"],
+                  ["Surface", "var(--ld-color-surface-container)", "var(--ld-color-on-surface)"],
+                  ["Outline", "var(--ld-color-outline-variant)", "var(--ld-color-on-surface)"],
                 ].map(([label, background, color]) => (
                   <div className="role-chip" key={label} style={{ background, color }}>
                     <span>{label}</span>
-                    <code>{background.replace("var(--md-", "").replace(")", "")}</code>
+                    <code>{background.replace("var(--ld-", "").replace(")", "")}</code>
                   </div>
                 ))}
               </div>
