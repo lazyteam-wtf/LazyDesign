@@ -8,6 +8,15 @@ export {
   type LazyMode,
 } from "./color";
 export {
+  createComponentTheme as createComponentTokenTheme,
+  createComponentVars,
+  lazyComponentTokens,
+  lazyComponentTokenVars,
+  type LazyComponentDensity,
+  type LazyComponentThemeInput,
+  type LazyDesignStyle,
+} from "./components";
+export {
   createMotionRecipe,
   createMotionVars,
   lazyMotionPresets,
@@ -25,6 +34,7 @@ export {
   createThemeSource,
   createThemeVars,
   generateTheme,
+  resolveTheme,
   serializeVars,
   type LazyBrandTheme,
   type LazyComponentTheme,
@@ -33,6 +43,20 @@ export {
   type LazyThemeInput,
   type LazyThemeSource,
 } from "./theme";
+export {
+  getLazyToken,
+  getLazyTokensByCategory,
+  getLazyTokensByType,
+  lazyAllTokenRegistry,
+  lazyCompatibilityTokenRegistry,
+  lazyComponentTokenRegistry,
+  lazyPublicTokenRegistry,
+  lazyTokenRegistry,
+  type LazyTokenCategory,
+  type LazyTokenMetadata,
+  type LazyTokenStatus,
+  type LazyTokenType,
+} from "./registry";
 export {
   createFoundationVars,
   lazyCompatibilityVars,

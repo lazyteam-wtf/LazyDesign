@@ -1,15 +1,24 @@
 import { createColorRoles, createColorVars, normalizeHex, type LazyColorRoles, type LazyContrast, type LazyMode } from "./color";
-import { createMotionRecipe, createMotionVars, type LazyMotionPreference, type LazyMotionRecipe } from "./motion";
+import {
+  createComponentTheme as createComponentTokenTheme,
+  type LazyComponentTheme,
+  type LazyDesignStyle,
+} from "./components";
+import { createMotionVars, type LazyMotionPreference } from "./motion";
 import { createRadiusVars, type LazyRadiusScale } from "./radius";
-import { createFoundationVars, type LazyCssVars, lazyTokenVars } from "./tokens";
+import { createFoundationVars, type LazyCssVars } from "./tokens";
+
+export type { LazyComponentTheme, LazyDesignStyle } from "./components";
 
 export type LazyThemeInput = {
-  source: string;
+  source?: string;
+  seed?: string;
   mode?: LazyMode;
   contrast?: LazyContrast;
   radius?: LazyRadiusScale;
   motion?: LazyMotionPreference;
   density?: "standard" | "compact";
+  style?: LazyDesignStyle;
 };
 
 export type LazyThemeSource = {
@@ -19,6 +28,7 @@ export type LazyThemeSource = {
   radius: LazyRadiusScale;
   motion: LazyMotionPreference;
   density: "standard" | "compact";
+  style: LazyDesignStyle;
 };
 
 export type LazyBrandTheme = {
@@ -29,26 +39,6 @@ export type LazyBrandTheme = {
 
 export type LazySemanticTheme = {
   color: LazyColorRoles;
-  vars: LazyCssVars;
-};
-
-export type LazyComponentTheme = {
-  surface: {
-    level0: string;
-    level1: string;
-    level2: string;
-    level3: string;
-  };
-  control: {
-    radius: string;
-    focusRing: string;
-    hover: string;
-    pressed: string;
-  };
-  motion: {
-    enter: LazyMotionRecipe;
-    reveal: LazyMotionRecipe;
-  };
   vars: LazyCssVars;
 };
 
@@ -63,6 +53,14 @@ export type LazyTheme = {
 };
 
 export function createTheme(input: LazyThemeInput): LazyTheme {
+  return resolveTheme(input);
+}
+
+export function generateTheme(input: LazyThemeInput): LazyTheme {
+  return resolveTheme(input);
+}
+
+export function resolveTheme(input: LazyThemeInput): LazyTheme {
   const source = createThemeSource(input);
   const brand = createBrandTheme(source);
   const semantic = createSemanticTheme(source, brand);
@@ -85,18 +83,17 @@ export function createTheme(input: LazyThemeInput): LazyTheme {
   };
 }
 
-export function generateTheme(input: LazyThemeInput) {
-  return createTheme(input);
-}
-
 export function createThemeSource(input: LazyThemeInput): LazyThemeSource {
+  const style = input.style ?? "linear";
+
   return {
-    seed: normalizeHex(input.source),
+    seed: normalizeHex(input.source ?? input.seed ?? "#1f8a70"),
     mode: input.mode ?? "light",
     contrast: input.contrast ?? "normal",
-    radius: input.radius ?? "professional",
+    radius: input.radius ?? (style === "expressive" ? "expressive" : "professional"),
     motion: input.motion ?? "system",
-    density: input.density ?? "standard",
+    density: input.density ?? (style === "enterprise" ? "compact" : "standard"),
+    style,
   };
 }
 
@@ -122,36 +119,12 @@ export function createSemanticTheme(source: LazyThemeSource, brand: LazyBrandThe
 }
 
 export function createComponentTheme(source: LazyThemeSource, semantic: LazySemanticTheme): LazyComponentTheme {
-  const vars: LazyCssVars = {
-    "--ld-component-surface-level-0": semantic.color.background,
-    "--ld-component-surface-level-1": semantic.color.surface,
-    "--ld-component-surface-level-2": semantic.color.surfaceContainer,
-    "--ld-component-surface-level-3": semantic.color.surfaceContainerHigh,
-    "--ld-component-control-radius": `var(${lazyTokenVars.shape.cornerMedium})`,
-    "--ld-component-control-focus-ring": semantic.color.focusRing,
-    "--ld-component-control-hover": semantic.color.stateHover,
-    "--ld-component-control-pressed": semantic.color.statePressed,
-  };
-
-  return {
-    surface: {
-      level0: vars["--ld-component-surface-level-0"],
-      level1: vars["--ld-component-surface-level-1"],
-      level2: vars["--ld-component-surface-level-2"],
-      level3: vars["--ld-component-surface-level-3"],
-    },
-    control: {
-      radius: vars["--ld-component-control-radius"],
-      focusRing: vars["--ld-component-control-focus-ring"],
-      hover: vars["--ld-component-control-hover"],
-      pressed: vars["--ld-component-control-pressed"],
-    },
-    motion: {
-      enter: createMotionRecipe("slide", source.motion),
-      reveal: createMotionRecipe("reveal", source.motion),
-    },
-    vars,
-  };
+  return createComponentTokenTheme({
+    color: semantic.color,
+    density: source.density,
+    motion: source.motion,
+    style: source.style,
+  });
 }
 
 export function applyTheme(theme: LazyTheme, target: HTMLElement = document.documentElement) {
@@ -159,6 +132,7 @@ export function applyTheme(theme: LazyTheme, target: HTMLElement = document.docu
     target.style.setProperty(key, value);
   }
   target.dataset.theme = theme.source.mode;
+  target.dataset.themeStyle = theme.source.style;
 }
 
 export function serializeVars(vars: LazyCssVars) {
@@ -168,5 +142,5 @@ export function serializeVars(vars: LazyCssVars) {
 }
 
 export function createThemeVars(input: LazyThemeInput) {
-  return createTheme(input).vars;
+  return resolveTheme(input).vars;
 }
