@@ -78,6 +78,49 @@ export const lazyComponentTokenVars = {
     height: "--ld-component-input-height",
     paddingX: "--ld-component-input-padding-x",
   },
+  field: {
+    labelForeground: "--ld-component-field-label-foreground",
+    descriptionForeground: "--ld-component-field-description-foreground",
+    errorForeground: "--ld-component-field-error-foreground",
+    gap: "--ld-component-field-gap",
+  },
+  checkbox: {
+    background: "--ld-component-checkbox-background",
+    backgroundChecked: "--ld-component-checkbox-background-checked",
+    foregroundChecked: "--ld-component-checkbox-foreground-checked",
+    border: "--ld-component-checkbox-border",
+    borderChecked: "--ld-component-checkbox-border-checked",
+    radius: "--ld-component-checkbox-radius",
+    sizeSm: "--ld-component-checkbox-size-sm",
+    sizeMd: "--ld-component-checkbox-size-md",
+  },
+  switch: {
+    trackBackground: "--ld-component-switch-track-background",
+    trackBackgroundChecked: "--ld-component-switch-track-background-checked",
+    trackBorder: "--ld-component-switch-track-border",
+    thumbBackground: "--ld-component-switch-thumb-background",
+    thumbBackgroundChecked: "--ld-component-switch-thumb-background-checked",
+    widthSm: "--ld-component-switch-width-sm",
+    widthMd: "--ld-component-switch-width-md",
+    heightSm: "--ld-component-switch-height-sm",
+    heightMd: "--ld-component-switch-height-md",
+  },
+  select: {
+    triggerBackground: "--ld-component-select-trigger-background",
+    triggerForeground: "--ld-component-select-trigger-foreground",
+    triggerPlaceholder: "--ld-component-select-trigger-placeholder",
+    triggerBorder: "--ld-component-select-trigger-border",
+    triggerBorderFocus: "--ld-component-select-trigger-border-focus",
+    triggerBorderInvalid: "--ld-component-select-trigger-border-invalid",
+    contentBackground: "--ld-component-select-content-background",
+    contentForeground: "--ld-component-select-content-foreground",
+    contentBorder: "--ld-component-select-content-border",
+    contentShadow: "--ld-component-select-content-shadow",
+    itemBackgroundHighlighted: "--ld-component-select-item-background-highlighted",
+    itemForegroundSelected: "--ld-component-select-item-foreground-selected",
+    indicator: "--ld-component-select-indicator",
+    radius: "--ld-component-select-radius",
+  },
   badge: {
     background: "--ld-component-badge-background",
     foreground: "--ld-component-badge-foreground",
@@ -143,6 +186,10 @@ export const lazyComponentTokens = {
   control: toRefs(lazyComponentTokenVars.control),
   button: toRefs(lazyComponentTokenVars.button),
   input: toRefs(lazyComponentTokenVars.input),
+  field: toRefs(lazyComponentTokenVars.field),
+  checkbox: toRefs(lazyComponentTokenVars.checkbox),
+  switch: toRefs(lazyComponentTokenVars.switch),
+  select: toRefs(lazyComponentTokenVars.select),
   badge: toRefs(lazyComponentTokenVars.badge),
   card: toRefs(lazyComponentTokenVars.card),
   tabs: toRefs(lazyComponentTokenVars.tabs),
@@ -217,6 +264,49 @@ export type LazyComponentTheme = {
     radius: string;
     height: string;
     paddingX: string;
+  };
+  field: {
+    labelForeground: string;
+    descriptionForeground: string;
+    errorForeground: string;
+    gap: string;
+  };
+  checkbox: {
+    background: string;
+    backgroundChecked: string;
+    foregroundChecked: string;
+    border: string;
+    borderChecked: string;
+    radius: string;
+    sizeSm: string;
+    sizeMd: string;
+  };
+  switch: {
+    trackBackground: string;
+    trackBackgroundChecked: string;
+    trackBorder: string;
+    thumbBackground: string;
+    thumbBackgroundChecked: string;
+    widthSm: string;
+    widthMd: string;
+    heightSm: string;
+    heightMd: string;
+  };
+  select: {
+    triggerBackground: string;
+    triggerForeground: string;
+    triggerPlaceholder: string;
+    triggerBorder: string;
+    triggerBorderFocus: string;
+    triggerBorderInvalid: string;
+    contentBackground: string;
+    contentForeground: string;
+    contentBorder: string;
+    contentShadow: string;
+    itemBackgroundHighlighted: string;
+    itemForegroundSelected: string;
+    indicator: string;
+    radius: string;
   };
   badge: {
     background: string;
@@ -354,6 +444,49 @@ export function createComponentTheme(input: LazyComponentThemeInput): LazyCompon
       radius: vars[lazyComponentTokenVars.input.radius],
       height: vars[lazyComponentTokenVars.input.height],
       paddingX: vars[lazyComponentTokenVars.input.paddingX],
+    },
+    field: {
+      labelForeground: vars[lazyComponentTokenVars.field.labelForeground],
+      descriptionForeground: vars[lazyComponentTokenVars.field.descriptionForeground],
+      errorForeground: vars[lazyComponentTokenVars.field.errorForeground],
+      gap: vars[lazyComponentTokenVars.field.gap],
+    },
+    checkbox: {
+      background: vars[lazyComponentTokenVars.checkbox.background],
+      backgroundChecked: vars[lazyComponentTokenVars.checkbox.backgroundChecked],
+      foregroundChecked: vars[lazyComponentTokenVars.checkbox.foregroundChecked],
+      border: vars[lazyComponentTokenVars.checkbox.border],
+      borderChecked: vars[lazyComponentTokenVars.checkbox.borderChecked],
+      radius: vars[lazyComponentTokenVars.checkbox.radius],
+      sizeSm: vars[lazyComponentTokenVars.checkbox.sizeSm],
+      sizeMd: vars[lazyComponentTokenVars.checkbox.sizeMd],
+    },
+    switch: {
+      trackBackground: vars[lazyComponentTokenVars.switch.trackBackground],
+      trackBackgroundChecked: vars[lazyComponentTokenVars.switch.trackBackgroundChecked],
+      trackBorder: vars[lazyComponentTokenVars.switch.trackBorder],
+      thumbBackground: vars[lazyComponentTokenVars.switch.thumbBackground],
+      thumbBackgroundChecked: vars[lazyComponentTokenVars.switch.thumbBackgroundChecked],
+      widthSm: vars[lazyComponentTokenVars.switch.widthSm],
+      widthMd: vars[lazyComponentTokenVars.switch.widthMd],
+      heightSm: vars[lazyComponentTokenVars.switch.heightSm],
+      heightMd: vars[lazyComponentTokenVars.switch.heightMd],
+    },
+    select: {
+      triggerBackground: vars[lazyComponentTokenVars.select.triggerBackground],
+      triggerForeground: vars[lazyComponentTokenVars.select.triggerForeground],
+      triggerPlaceholder: vars[lazyComponentTokenVars.select.triggerPlaceholder],
+      triggerBorder: vars[lazyComponentTokenVars.select.triggerBorder],
+      triggerBorderFocus: vars[lazyComponentTokenVars.select.triggerBorderFocus],
+      triggerBorderInvalid: vars[lazyComponentTokenVars.select.triggerBorderInvalid],
+      contentBackground: vars[lazyComponentTokenVars.select.contentBackground],
+      contentForeground: vars[lazyComponentTokenVars.select.contentForeground],
+      contentBorder: vars[lazyComponentTokenVars.select.contentBorder],
+      contentShadow: vars[lazyComponentTokenVars.select.contentShadow],
+      itemBackgroundHighlighted: vars[lazyComponentTokenVars.select.itemBackgroundHighlighted],
+      itemForegroundSelected: vars[lazyComponentTokenVars.select.itemForegroundSelected],
+      indicator: vars[lazyComponentTokenVars.select.indicator],
+      radius: vars[lazyComponentTokenVars.select.radius],
     },
     badge: {
       background: vars[lazyComponentTokenVars.badge.background],
@@ -498,6 +631,41 @@ export function createComponentVars(input: LazyComponentThemeInput): LazyCssVars
     [lazyComponentTokenVars.input.radius]: radius,
     [lazyComponentTokenVars.input.height]: dimensions.heightMd,
     [lazyComponentTokenVars.input.paddingX]: dimensions.paddingXMd,
+    [lazyComponentTokenVars.field.labelForeground]: `var(${lazyTokenVars.color.onSurface})`,
+    [lazyComponentTokenVars.field.descriptionForeground]: `var(${lazyTokenVars.color.onSurfaceVariant})`,
+    [lazyComponentTokenVars.field.errorForeground]: `var(${lazyTokenVars.color.error})`,
+    [lazyComponentTokenVars.field.gap]: `var(${lazyTokenVars.space[2]})`,
+    [lazyComponentTokenVars.checkbox.background]: `var(${lazyTokenVars.color.surface})`,
+    [lazyComponentTokenVars.checkbox.backgroundChecked]: `var(${lazyTokenVars.color.primary})`,
+    [lazyComponentTokenVars.checkbox.foregroundChecked]: `var(${lazyTokenVars.color.onPrimary})`,
+    [lazyComponentTokenVars.checkbox.border]: `var(${lazyTokenVars.color.borderMuted})`,
+    [lazyComponentTokenVars.checkbox.borderChecked]: `var(${lazyTokenVars.color.primary})`,
+    [lazyComponentTokenVars.checkbox.radius]: `var(${lazyTokenVars.shape.cornerExtraSmall})`,
+    [lazyComponentTokenVars.checkbox.sizeSm]: density === "compact" ? "14px" : "16px",
+    [lazyComponentTokenVars.checkbox.sizeMd]: density === "compact" ? "16px" : "18px",
+    [lazyComponentTokenVars.switch.trackBackground]: `var(${lazyTokenVars.color.surfaceContainerHigh})`,
+    [lazyComponentTokenVars.switch.trackBackgroundChecked]: `var(${lazyTokenVars.color.primary})`,
+    [lazyComponentTokenVars.switch.trackBorder]: `var(${lazyTokenVars.color.borderMuted})`,
+    [lazyComponentTokenVars.switch.thumbBackground]: `var(${lazyTokenVars.color.onSurfaceVariant})`,
+    [lazyComponentTokenVars.switch.thumbBackgroundChecked]: `var(${lazyTokenVars.color.onPrimary})`,
+    [lazyComponentTokenVars.switch.widthSm]: density === "compact" ? "28px" : "30px",
+    [lazyComponentTokenVars.switch.widthMd]: density === "compact" ? "32px" : "36px",
+    [lazyComponentTokenVars.switch.heightSm]: density === "compact" ? "16px" : "18px",
+    [lazyComponentTokenVars.switch.heightMd]: density === "compact" ? "18px" : "20px",
+    [lazyComponentTokenVars.select.triggerBackground]: `var(${lazyTokenVars.color.surface})`,
+    [lazyComponentTokenVars.select.triggerForeground]: `var(${lazyTokenVars.color.onSurface})`,
+    [lazyComponentTokenVars.select.triggerPlaceholder]: `var(${lazyTokenVars.color.onSurfaceVariant})`,
+    [lazyComponentTokenVars.select.triggerBorder]: `var(${lazyTokenVars.color.borderMuted})`,
+    [lazyComponentTokenVars.select.triggerBorderFocus]: `var(${lazyTokenVars.color.primary})`,
+    [lazyComponentTokenVars.select.triggerBorderInvalid]: `var(${lazyTokenVars.color.error})`,
+    [lazyComponentTokenVars.select.contentBackground]: `var(${lazyTokenVars.color.surfaceContainer})`,
+    [lazyComponentTokenVars.select.contentForeground]: `var(${lazyTokenVars.color.onSurface})`,
+    [lazyComponentTokenVars.select.contentBorder]: `var(${lazyTokenVars.color.outlineVariant})`,
+    [lazyComponentTokenVars.select.contentShadow]: `0 12px 32px color-mix(in srgb, var(${lazyTokenVars.color.onSurface}), transparent 82%)`,
+    [lazyComponentTokenVars.select.itemBackgroundHighlighted]: `var(${lazyTokenVars.color.stateHover})`,
+    [lazyComponentTokenVars.select.itemForegroundSelected]: `var(${lazyTokenVars.color.primary})`,
+    [lazyComponentTokenVars.select.indicator]: `var(${lazyTokenVars.color.primary})`,
+    [lazyComponentTokenVars.select.radius]: radius,
     [lazyComponentTokenVars.badge.background]: `var(${lazyTokenVars.color.surfaceContainer})`,
     [lazyComponentTokenVars.badge.foreground]: `var(${lazyTokenVars.color.onSurface})`,
     [lazyComponentTokenVars.badge.border]: `var(${lazyTokenVars.color.borderMuted})`,
