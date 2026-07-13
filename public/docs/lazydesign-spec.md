@@ -1,8 +1,8 @@
 # LazyDesign Specification
 
-Version: 0.4.2
-Status: Adapter-Safe LazyMotion Runtime
-Scope: Design language, token runtime, theme resolver, component-token contract, executable motion runtime, primitive React layer, first React components
+Version: 0.5.0
+Status: Component Expansion and LazyTeam.wtf Example
+Scope: Design language, token runtime, theme resolver, component-token contract, executable motion runtime, primitive React layer, production-facing React components, product example interface
 
 LazyDesign is a flat-first adaptive interface language for focused software work. It is moving from a written specification into an executable design-system runtime.
 
@@ -27,6 +27,8 @@ Idea
   -> Primitive System         v0.3.0
   -> Component Runtime        v0.4.1 first layer hardening
   -> Motion Runtime           v0.4.2 adapter-safe execution layer
+  -> Product Components       v0.5.0 Card, Tabs, Tooltip
+  -> Example Interface        v0.5.0 LazyTeam.wtf console
   -> Production Library       not started
 ```
 
@@ -39,7 +41,7 @@ Current evaluation:
 | Theme Engine | 85% |
 | Motion Architecture | 78% |
 | Primitive System | 55% |
-| Component System | 25% |
+| Component System | 35% |
 | Documentation | 80% |
 
 ## Core Contract
@@ -150,6 +152,9 @@ Current component-token groups:
 - `button`
 - `input`
 - `badge`
+- `card`
+- `tabs`
+- `tooltip`
 - `icon`
 - `code`
 
@@ -244,7 +249,7 @@ v0.4.0 begins the React component layer:
 - `Input`
 - `Badge`
 
-This layer is intentionally small. Larger behavior-heavy components such as `Dialog`, `Toast`, `Tooltip`, `Table`, `Tabs`, and `Menu` come after the first component API settles.
+This layer is intentionally small. Larger behavior-heavy components such as `Dialog`, `Toast`, `Table`, and `Menu` come after the first component API settles.
 
 v0.4.1 hardens the first component layer:
 
@@ -259,6 +264,13 @@ v0.4.2 introduces the LazyMotion runtime layer:
 - `lazyWebMotionAdapter` is the default lightweight adapter.
 - `lazyGsapMotionAdapter` lives behind `lazydesign/motion/gsap`.
 - React hooks such as `useLazyMotionRecipe()` read `LazyProvider` theme and reduced-motion preferences.
+
+v0.5.0 expands the product component layer:
+
+- `Card` provides a flat-first product container pattern over surface and spacing tokens.
+- `Tabs` uses Radix Tabs behavior with LazyDesign trigger, focus, density, and indicator tokens.
+- `Tooltip` uses Radix Tooltip behavior with restrained overlay tokens and reduced-motion support.
+- The local preview now renders a LazyTeam.wtf industrial command console built from LazyDesign primitives and components.
 
 ## Primitive API
 
@@ -304,7 +316,7 @@ Component styles are imported explicitly:
 
 ```tsx
 import { LazyProvider } from "lazydesign/react";
-import { Badge, Button, Heading, Icon, Input } from "lazydesign/components";
+import { Badge, Button, Card, Heading, Icon, Input, Tabs, TabsList, TabsTrigger, Tooltip } from "lazydesign/components";
 import "lazydesign/primitives/styles.css";
 import "lazydesign/components/styles.css";
 ```
@@ -339,6 +351,8 @@ import "lazydesign/components/styles.css";
 
 `Badge`, `Icon`, `Heading`, and `Code` are the first typography and feedback-adjacent building blocks.
 
+`Card`, `Tabs`, and `Tooltip` are the first production-facing composition and behavior components.
+
 ## LazyDesign Refusals
 
 LazyDesign refuses:
@@ -364,6 +378,7 @@ LazyDesign refuses:
 - `src/motion/`: LazyMotion runtime, Web Animations adapter, GSAP adapter, and React hooks
 - `src/primitives/`: primitive React layer
 - `src/components/`: first React component layer
+- `src/App.tsx`: LazyTeam.wtf example interface
 - `src/react/`: React provider and framework entry
 - `design/constitution.md`: non-negotiable rules
 - `design/token-policy.md`: token governance policy

@@ -90,6 +90,39 @@ export const lazyComponentTokenVars = {
     dangerForeground: "--ld-component-badge-danger-foreground",
     radius: "--ld-component-badge-radius",
   },
+  card: {
+    background: "--ld-component-card-background",
+    foreground: "--ld-component-card-foreground",
+    border: "--ld-component-card-border",
+    radius: "--ld-component-card-radius",
+    padding: "--ld-component-card-padding",
+    headerGap: "--ld-component-card-header-gap",
+    bodyGap: "--ld-component-card-body-gap",
+    hoverBackground: "--ld-component-card-hover-background",
+  },
+  tabs: {
+    listBackground: "--ld-component-tabs-list-background",
+    listBorder: "--ld-component-tabs-list-border",
+    triggerForeground: "--ld-component-tabs-trigger-foreground",
+    triggerBackgroundHover: "--ld-component-tabs-trigger-background-hover",
+    triggerForegroundActive: "--ld-component-tabs-trigger-foreground-active",
+    triggerBackgroundActive: "--ld-component-tabs-trigger-background-active",
+    triggerBorderActive: "--ld-component-tabs-trigger-border-active",
+    indicator: "--ld-component-tabs-indicator",
+    radius: "--ld-component-tabs-radius",
+    height: "--ld-component-tabs-height",
+    paddingX: "--ld-component-tabs-padding-x",
+    gap: "--ld-component-tabs-gap",
+  },
+  tooltip: {
+    background: "--ld-component-tooltip-background",
+    foreground: "--ld-component-tooltip-foreground",
+    border: "--ld-component-tooltip-border",
+    radius: "--ld-component-tooltip-radius",
+    shadow: "--ld-component-tooltip-shadow",
+    paddingX: "--ld-component-tooltip-padding-x",
+    paddingY: "--ld-component-tooltip-padding-y",
+  },
   icon: {
     foreground: "--ld-component-icon-foreground",
     muted: "--ld-component-icon-muted",
@@ -111,6 +144,9 @@ export const lazyComponentTokens = {
   button: toRefs(lazyComponentTokenVars.button),
   input: toRefs(lazyComponentTokenVars.input),
   badge: toRefs(lazyComponentTokenVars.badge),
+  card: toRefs(lazyComponentTokenVars.card),
+  tabs: toRefs(lazyComponentTokenVars.tabs),
+  tooltip: toRefs(lazyComponentTokenVars.tooltip),
   icon: toRefs(lazyComponentTokenVars.icon),
   code: toRefs(lazyComponentTokenVars.code),
 } as const;
@@ -193,6 +229,39 @@ export type LazyComponentTheme = {
     dangerBackground: string;
     dangerForeground: string;
     radius: string;
+  };
+  card: {
+    background: string;
+    foreground: string;
+    border: string;
+    radius: string;
+    padding: string;
+    headerGap: string;
+    bodyGap: string;
+    hoverBackground: string;
+  };
+  tabs: {
+    listBackground: string;
+    listBorder: string;
+    triggerForeground: string;
+    triggerBackgroundHover: string;
+    triggerForegroundActive: string;
+    triggerBackgroundActive: string;
+    triggerBorderActive: string;
+    indicator: string;
+    radius: string;
+    height: string;
+    paddingX: string;
+    gap: string;
+  };
+  tooltip: {
+    background: string;
+    foreground: string;
+    border: string;
+    radius: string;
+    shadow: string;
+    paddingX: string;
+    paddingY: string;
   };
   icon: {
     foreground: string;
@@ -297,6 +366,39 @@ export function createComponentTheme(input: LazyComponentThemeInput): LazyCompon
       dangerBackground: vars[lazyComponentTokenVars.badge.dangerBackground],
       dangerForeground: vars[lazyComponentTokenVars.badge.dangerForeground],
       radius: vars[lazyComponentTokenVars.badge.radius],
+    },
+    card: {
+      background: vars[lazyComponentTokenVars.card.background],
+      foreground: vars[lazyComponentTokenVars.card.foreground],
+      border: vars[lazyComponentTokenVars.card.border],
+      radius: vars[lazyComponentTokenVars.card.radius],
+      padding: vars[lazyComponentTokenVars.card.padding],
+      headerGap: vars[lazyComponentTokenVars.card.headerGap],
+      bodyGap: vars[lazyComponentTokenVars.card.bodyGap],
+      hoverBackground: vars[lazyComponentTokenVars.card.hoverBackground],
+    },
+    tabs: {
+      listBackground: vars[lazyComponentTokenVars.tabs.listBackground],
+      listBorder: vars[lazyComponentTokenVars.tabs.listBorder],
+      triggerForeground: vars[lazyComponentTokenVars.tabs.triggerForeground],
+      triggerBackgroundHover: vars[lazyComponentTokenVars.tabs.triggerBackgroundHover],
+      triggerForegroundActive: vars[lazyComponentTokenVars.tabs.triggerForegroundActive],
+      triggerBackgroundActive: vars[lazyComponentTokenVars.tabs.triggerBackgroundActive],
+      triggerBorderActive: vars[lazyComponentTokenVars.tabs.triggerBorderActive],
+      indicator: vars[lazyComponentTokenVars.tabs.indicator],
+      radius: vars[lazyComponentTokenVars.tabs.radius],
+      height: vars[lazyComponentTokenVars.tabs.height],
+      paddingX: vars[lazyComponentTokenVars.tabs.paddingX],
+      gap: vars[lazyComponentTokenVars.tabs.gap],
+    },
+    tooltip: {
+      background: vars[lazyComponentTokenVars.tooltip.background],
+      foreground: vars[lazyComponentTokenVars.tooltip.foreground],
+      border: vars[lazyComponentTokenVars.tooltip.border],
+      radius: vars[lazyComponentTokenVars.tooltip.radius],
+      shadow: vars[lazyComponentTokenVars.tooltip.shadow],
+      paddingX: vars[lazyComponentTokenVars.tooltip.paddingX],
+      paddingY: vars[lazyComponentTokenVars.tooltip.paddingY],
     },
     icon: {
       foreground: vars[lazyComponentTokenVars.icon.foreground],
@@ -406,6 +508,33 @@ export function createComponentVars(input: LazyComponentThemeInput): LazyCssVars
     [lazyComponentTokenVars.badge.dangerBackground]: `color-mix(in srgb, var(${lazyTokenVars.color.error}), transparent 86%)`,
     [lazyComponentTokenVars.badge.dangerForeground]: `var(${lazyTokenVars.color.error})`,
     [lazyComponentTokenVars.badge.radius]: `var(${lazyTokenVars.shape.cornerFull})`,
+    [lazyComponentTokenVars.card.background]: `var(${lazyTokenVars.color.surface})`,
+    [lazyComponentTokenVars.card.foreground]: `var(${lazyTokenVars.color.onSurface})`,
+    [lazyComponentTokenVars.card.border]: `var(${lazyTokenVars.color.outlineVariant})`,
+    [lazyComponentTokenVars.card.radius]: `var(${lazyTokenVars.shape.cornerMedium})`,
+    [lazyComponentTokenVars.card.padding]: density === "compact" ? `var(${lazyTokenVars.space[3]})` : `var(${lazyTokenVars.space[4]})`,
+    [lazyComponentTokenVars.card.headerGap]: `var(${lazyTokenVars.space[2]})`,
+    [lazyComponentTokenVars.card.bodyGap]: `var(${lazyTokenVars.space[3]})`,
+    [lazyComponentTokenVars.card.hoverBackground]: `var(${lazyTokenVars.color.surfaceContainerLow})`,
+    [lazyComponentTokenVars.tabs.listBackground]: `var(${lazyTokenVars.color.surfaceContainer})`,
+    [lazyComponentTokenVars.tabs.listBorder]: `var(${lazyTokenVars.color.borderMuted})`,
+    [lazyComponentTokenVars.tabs.triggerForeground]: `var(${lazyTokenVars.color.onSurfaceVariant})`,
+    [lazyComponentTokenVars.tabs.triggerBackgroundHover]: `var(${lazyTokenVars.color.stateHover})`,
+    [lazyComponentTokenVars.tabs.triggerForegroundActive]: `var(${lazyTokenVars.color.onSurface})`,
+    [lazyComponentTokenVars.tabs.triggerBackgroundActive]: `var(${lazyTokenVars.color.surface})`,
+    [lazyComponentTokenVars.tabs.triggerBorderActive]: `var(${lazyTokenVars.color.outlineVariant})`,
+    [lazyComponentTokenVars.tabs.indicator]: `var(${lazyTokenVars.color.primary})`,
+    [lazyComponentTokenVars.tabs.radius]: radius,
+    [lazyComponentTokenVars.tabs.height]: dimensions.heightSm,
+    [lazyComponentTokenVars.tabs.paddingX]: dimensions.paddingXSm,
+    [lazyComponentTokenVars.tabs.gap]: `var(${lazyTokenVars.space[1]})`,
+    [lazyComponentTokenVars.tooltip.background]: `var(${lazyTokenVars.color.inverseSurface})`,
+    [lazyComponentTokenVars.tooltip.foreground]: `var(${lazyTokenVars.color.inverseOnSurface})`,
+    [lazyComponentTokenVars.tooltip.border]: `var(${lazyTokenVars.color.outlineVariant})`,
+    [lazyComponentTokenVars.tooltip.radius]: `var(${lazyTokenVars.shape.cornerSmall})`,
+    [lazyComponentTokenVars.tooltip.shadow]: `0 8px 24px color-mix(in srgb, var(${lazyTokenVars.color.inverseSurface}), transparent 84%)`,
+    [lazyComponentTokenVars.tooltip.paddingX]: `var(${lazyTokenVars.space[2]})`,
+    [lazyComponentTokenVars.tooltip.paddingY]: `var(${lazyTokenVars.space[1]})`,
     [lazyComponentTokenVars.icon.foreground]: `var(${lazyTokenVars.color.onSurface})`,
     [lazyComponentTokenVars.icon.muted]: `var(${lazyTokenVars.color.onSurfaceVariant})`,
     [lazyComponentTokenVars.icon.primary]: `var(${lazyTokenVars.color.primary})`,

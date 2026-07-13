@@ -303,6 +303,202 @@
   --ld-badge-foreground: var(--ld-component-button-danger-foreground);
 }
 
+.ld-card {
+  display: grid;
+  gap: var(--ld-component-card-body-gap);
+  min-width: 0;
+  border: 1px solid var(--ld-component-card-border);
+  border-radius: var(--ld-component-card-radius);
+  background: var(--ld-component-card-background);
+  color: var(--ld-component-card-foreground);
+}
+
+.ld-card[data-padding="none"] {
+  padding: 0;
+}
+
+.ld-card[data-padding="sm"] {
+  padding: var(--ld-space-3);
+}
+
+.ld-card[data-padding="md"] {
+  padding: var(--ld-component-card-padding);
+}
+
+.ld-card[data-padding="lg"] {
+  padding: var(--ld-space-6);
+}
+
+.ld-card[data-interactive] {
+  cursor: pointer;
+  transition:
+    background-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    border-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    transform var(--ld-motion-duration-fast) var(--ld-motion-easing-standard);
+}
+
+.ld-card[data-interactive]:hover {
+  background: var(--ld-component-card-hover-background);
+  transform: var(--ld-component-control-motion-hover-transform);
+}
+
+.ld-card__header,
+.ld-card__content,
+.ld-card__footer {
+  min-width: 0;
+}
+
+.ld-card__header {
+  display: grid;
+  gap: var(--ld-component-card-header-gap);
+}
+
+.ld-card__content {
+  display: grid;
+  gap: var(--ld-component-card-body-gap);
+}
+
+.ld-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ld-space-2);
+}
+
+.ld-card__title {
+  margin: 0;
+}
+
+.ld-card__description,
+.ld-card__meta {
+  margin: 0;
+  color: var(--ld-component-text-muted);
+  font: var(--ld-typography-body-sm);
+}
+
+.ld-tabs {
+  display: grid;
+  gap: var(--ld-space-4);
+  min-width: 0;
+}
+
+.ld-tabs__list {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  align-items: center;
+  gap: var(--ld-component-tabs-gap);
+  min-height: var(--ld-component-tabs-height);
+  padding: var(--ld-space-1);
+  border: 1px solid var(--ld-component-tabs-list-border);
+  border-radius: var(--ld-component-tabs-radius);
+  background: var(--ld-component-tabs-list-background);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.ld-tabs__list::-webkit-scrollbar {
+  display: none;
+}
+
+.ld-tabs__list[data-variant="line"] {
+  width: 100%;
+  padding-inline: 0;
+  border-color: transparent;
+  border-bottom-color: var(--ld-component-tabs-list-border);
+  border-radius: 0;
+  background: transparent;
+}
+
+.ld-tabs__trigger {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--ld-component-tabs-height) - var(--ld-space-2));
+  padding-inline: var(--ld-component-tabs-padding-x);
+  border: 1px solid transparent;
+  border-radius: calc(var(--ld-component-tabs-radius) - 1px);
+  background: transparent;
+  color: var(--ld-component-tabs-trigger-foreground);
+  font: var(--ld-typography-label);
+  letter-spacing: 0;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    border-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard);
+}
+
+.ld-tabs__trigger:hover {
+  background: var(--ld-component-tabs-trigger-background-hover);
+}
+
+.ld-tabs__trigger[data-state="active"] {
+  border-color: var(--ld-component-tabs-trigger-border-active);
+  background: var(--ld-component-tabs-trigger-background-active);
+  color: var(--ld-component-tabs-trigger-foreground-active);
+}
+
+.ld-tabs__list[data-variant="line"] .ld-tabs__trigger {
+  border-radius: 0;
+}
+
+.ld-tabs__list[data-variant="line"] .ld-tabs__trigger[data-state="active"] {
+  border-color: transparent;
+  background: transparent;
+}
+
+.ld-tabs__list[data-variant="line"] .ld-tabs__trigger[data-state="active"]::after {
+  position: absolute;
+  right: var(--ld-space-1);
+  bottom: -5px;
+  left: var(--ld-space-1);
+  height: 1px;
+  background: var(--ld-component-tabs-indicator);
+  content: "";
+}
+
+.ld-tabs__trigger:focus-visible,
+.ld-tabs__content:focus-visible {
+  outline: none;
+  box-shadow: var(--ld-component-control-focus-ring);
+}
+
+.ld-tabs__content {
+  min-width: 0;
+}
+
+.ld-tooltip {
+  z-index: 60;
+  max-width: min(280px, calc(100vw - var(--ld-space-8)));
+  padding: var(--ld-component-tooltip-padding-y) var(--ld-component-tooltip-padding-x);
+  border: 1px solid var(--ld-component-tooltip-border);
+  border-radius: var(--ld-component-tooltip-radius);
+  background: var(--ld-component-tooltip-background);
+  color: var(--ld-component-tooltip-foreground);
+  box-shadow: var(--ld-component-tooltip-shadow);
+  font: var(--ld-typography-body-sm);
+  letter-spacing: 0;
+  transform-origin: var(--radix-tooltip-content-transform-origin);
+  user-select: none;
+}
+
+.ld-tooltip[data-state="delayed-open"] {
+  animation: ld-tooltip-enter var(--ld-motion-duration-fast) var(--ld-motion-easing-enter);
+}
+
+.ld-tooltip[data-state="closed"] {
+  animation: ld-tooltip-exit var(--ld-motion-duration-instant) var(--ld-motion-easing-exit);
+}
+
+.ld-tooltip__arrow {
+  fill: var(--ld-component-tooltip-background);
+}
+
 .ld-heading {
   color: var(--ld-component-text-primary);
 }
@@ -378,9 +574,33 @@ code.ld-code {
   }
 }
 
+@keyframes ld-tooltip-enter {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes ld-tooltip-exit {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .ld-button,
-  .ld-input {
+  .ld-input,
+  .ld-card[data-interactive],
+  .ld-tabs__trigger {
     transition-duration: var(--ld-motion-duration-instant);
   }
 
@@ -389,7 +609,13 @@ code.ld-code {
   }
 
   .ld-button[data-motion="soft"]:hover:not(:disabled),
-  .ld-button[data-motion="press"]:active:not(:disabled) {
+  .ld-button[data-motion="press"]:active:not(:disabled),
+  .ld-card[data-interactive]:hover {
     transform: none;
+  }
+
+  .ld-tooltip[data-state="delayed-open"],
+  .ld-tooltip[data-state="closed"] {
+    animation-duration: var(--ld-motion-duration-instant);
   }
 }

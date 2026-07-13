@@ -2,7 +2,7 @@
 
 LazyDesign is a modern adaptive React UI framework and interface design language for focused software work.
 
-Current status: `v0.4.2` adapter-safe LazyMotion runtime.
+Current status: `v0.5.0` component expansion and LazyTeam.wtf product example.
 
 It combines:
 
@@ -29,7 +29,7 @@ The core package layer includes:
 - `src/core/motion.ts` - motion durations, easing, and named presets
 - `src/motion/` - adapter-safe LazyMotion runtime with Web Animations and GSAP adapter entry
 - `src/primitives/` - Box, Stack, Text, Surface, Divider, and Spacer
-- `src/components/` - Heading, Code, Icon, Button, Input, and Badge
+- `src/components/` - Heading, Code, Icon, Button, Input, Badge, Card, Tabs, and Tooltip
 - `src/react/` - React provider and framework entry
 
 The public token contract is namespaced:
@@ -93,11 +93,11 @@ Implemented primitives:
 
 ## Component Layer
 
-v0.4.0 introduces the first developer-facing React components.
+v0.4.0 introduced the first developer-facing React components.
 
 ```tsx
 import { LazyProvider } from "lazydesign/react";
-import { Badge, Button, Heading, Icon, Input } from "lazydesign/components";
+import { Badge, Button, Card, Heading, Icon, Input, Tabs, TabsList, TabsTrigger } from "lazydesign/components";
 import "lazydesign/primitives/styles.css";
 import "lazydesign/components/styles.css";
 
@@ -107,6 +107,12 @@ export function Example() {
       <Heading level={1}>Launch workspace</Heading>
       <Input label="Project name" placeholder="LazyDesign" state="default" />
       <Button intent="primary" motion="press" iconStart={<Icon name="upload" />}>Launch</Button>
+      <Card interactive>Token-driven surface</Card>
+      <Tabs defaultValue="ops">
+        <TabsList>
+          <TabsTrigger value="ops">Ops</TabsTrigger>
+        </TabsList>
+      </Tabs>
       <Badge intent="primary">v0.4</Badge>
     </LazyProvider>
   );
@@ -121,6 +127,9 @@ Implemented components:
 - `Button`
 - `Input`
 - `Badge`
+- `Card`
+- `Tabs`
+- `Tooltip`
 
 v0.4.1 hardens the first component APIs:
 
@@ -128,7 +137,14 @@ v0.4.1 hardens the first component APIs:
 - `Input` supports explicit `state="default | error"` while preserving `error` and `invalid`
 - `Icon` supports `name`, `glyph`, and `registerIcon()` so the public API is not tied to a specific icon package
 
-Larger components such as `Dialog`, `Toast`, `Table`, and `Tabs` still belong to later phases.
+v0.5.0 expands the component layer:
+
+- `Card` provides a flat-first product container pattern over the surface system.
+- `Tabs` uses Radix behavior while keeping LazyDesign visual tokens in control.
+- `Tooltip` uses Radix trigger/content behavior with a restrained overlay token contract.
+- The Vite preview now renders a LazyTeam.wtf industrial SaaS console instead of a static specification page.
+
+Larger components such as `Dialog`, `Toast`, `Table`, and navigation patterns still belong to later phases.
 
 ## Motion Runtime
 
@@ -161,7 +177,7 @@ const recipe = useLazyMotionRecipe("slide");
 
 ## Files
 
-- `src/App.tsx` - interactive specification workspace
+- `src/App.tsx` - LazyTeam.wtf product-grade example interface
 - `src/core/` - LazyDesign core token and theme runtime
 - `src/primitives/` - foundation primitive React layer
 - `src/components/` - first React component layer
