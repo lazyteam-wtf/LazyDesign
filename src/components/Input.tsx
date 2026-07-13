@@ -1,6 +1,7 @@
 import { forwardRef, useId, type ReactNode } from "react";
 import { type LazyComponentSize, type LazyIconSlot, type NativeInputProps } from "./types";
 import { cx } from "../primitives/utils";
+import { isAriaInvalid, useFieldControlProps } from "./Field";
 
 export type LazyInputState = "default" | "error";
 
@@ -33,16 +34,19 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
   ref,
 ) {
   const generatedId = useId();
-  const inputId = id ?? generatedId;
+  const fieldControlProps = useFieldControlProps({ ...props, disabled, id });
+  const inputId = fieldControlProps.id ?? generatedId;
   const descriptionId = description ? `${inputId}-description` : undefined;
   const errorId = error ? `${inputId}-error` : undefined;
-  const resolvedState: LazyInputState = invalid || error ? "error" : state;
+  const fieldInvalid = isAriaInvalid(fieldControlProps["aria-invalid"]);
+  const resolvedState: LazyInputState = invalid || error || fieldInvalid ? "error" : state;
   const isInvalid = resolvedState === "error";
+  const describedBy = mergeIds(fieldControlProps["aria-describedby"], descriptionId, errorId);
 
   return (
     <div
       className={cx("ld-field", className)}
-      data-disabled={disabled ? "" : undefined}
+      data-disabled={fieldControlProps.disabled ? "" : undefined}
       data-invalid={isInvalid ? "" : undefined}
       data-state={resolvedState}
     >
@@ -54,11 +58,10 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
       <div className="ld-input" data-size={inputSize} data-state={resolvedState}>
         {iconStart ? <span className="ld-input__icon">{iconStart}</span> : null}
         <input
-          {...props}
-          aria-describedby={[descriptionId, errorId].filter(Boolean).join(" ") || undefined}
-          aria-invalid={isInvalid || undefined}
+          {...fieldControlProps}
+          aria-describedby={describedBy}
+          aria-invalid={fieldControlProps["aria-invalid"] ?? (isInvalid ? true : undefined)}
           className="ld-input__control"
-          disabled={disabled}
           id={inputId}
           ref={ref}
         />
@@ -77,3 +80,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
     </div>
   );
 });
+
+function mergeIds(...values: Array<string | undefined>) {
+  const ids = new Set(values.flatMap((value) => value?.split(/\s+/).filter(Boolean) ?? []));
+  return ids.size > 0 ? Array.from(ids).join(" ") : undefined;
+}

@@ -165,22 +165,22 @@
 
 .ld-field {
   display: grid;
-  gap: var(--ld-space-2);
+  gap: var(--ld-component-field-gap);
   min-width: 0;
 }
 
 .ld-field__label {
-  color: var(--ld-component-text-primary);
+  color: var(--ld-component-field-label-foreground);
   font: var(--ld-typography-label);
 }
 
 .ld-field__description {
-  color: var(--ld-component-text-muted);
+  color: var(--ld-component-field-description-foreground);
   font: var(--ld-typography-body-sm);
 }
 
 .ld-field__error {
-  color: var(--ld-component-icon-danger);
+  color: var(--ld-component-field-error-foreground);
   font: var(--ld-typography-body-sm);
 }
 

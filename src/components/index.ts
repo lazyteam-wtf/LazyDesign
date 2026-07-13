@@ -17,6 +17,18 @@ export {
   type LazyCardPadding,
 } from "./Card";
 export { Code, type CodeProps } from "./Code";
+export {
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  useFieldControlProps,
+  type FieldControlProps,
+  type FieldDescriptionProps,
+  type FieldErrorProps,
+  type FieldLabelProps,
+  type FieldProps,
+} from "./Field";
 export { Heading, type HeadingLevel, type HeadingProps, type HeadingSize } from "./Heading";
 export {
   Icon,
