@@ -1,6 +1,12 @@
 export { Badge, type BadgeProps, type LazyBadgeVariant } from "./Badge";
 export { Button, type ButtonProps, type LazyButtonVariant } from "./Button";
 export {
+  Checkbox,
+  type CheckboxProps,
+  type LazyCheckboxSize,
+  type LazyCheckboxState,
+} from "./Checkbox";
+export {
   Card,
   CardContent,
   CardDescription,
@@ -41,6 +47,12 @@ export {
 } from "./Icon";
 export { getIcon, listIcons, registerIcon, lazyDefaultIcons } from "./icon-registry";
 export { Input, type InputProps, type LazyInputState } from "./Input";
+export {
+  Switch,
+  type LazySwitchSize,
+  type LazySwitchState,
+  type SwitchProps,
+} from "./Switch";
 export {
   Tabs,
   TabsContent,
