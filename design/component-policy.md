@@ -1,7 +1,7 @@
 # LazyDesign Component Policy
 
 Status: stable draft
-Current implementation phase: v0.5.0 Component Expansion Layer
+Current implementation phase: v0.6.0 Form Foundation Layer
 
 LazyDesign components are not allowed to bypass the runtime contract. They are composed from primitives, component tokens, typed props, accessible behavior, and motion recipes.
 
@@ -42,9 +42,16 @@ v0.5.0 expands the React component system:
 - `Tabs`
 - `Tooltip`
 
+v0.6.0 establishes the accessible form foundation:
+
+- `Field`
+- `Checkbox`
+- `Switch`
+- `Select`
+
 Behavior-heavy components should prefer Radix primitives when available. LazyDesign owns the token contract, visual state mapping, density, and motion recipe; Radix owns the interaction semantics and focus behavior.
 
-Next component phases may add `Dialog`, `Drawer`, `Toast`, `Table`, form controls, and navigation patterns.
+Next component phases may add `Dialog`, `Drawer`, `Toast`, `Table`, richer form patterns, and navigation patterns.
 
 ## Component Requirements
 
@@ -107,3 +114,13 @@ Motion values used by components should resolve through component tokens when th
 `Divider` centralizes border hierarchy, orientation, and decorative versus semantic behavior.
 
 `Spacer` centralizes intentional empty space and must only resolve through spacing tokens.
+
+## Form Guidance
+
+`Field` is the accessibility composition boundary for labels, descriptions, errors, required state, invalid state, and disabled state.
+
+Form controls must call `useFieldControlProps()` when they can participate in `Field`.
+
+`Checkbox`, `Switch`, and `Select` may wrap Radix primitives for behavior, but their public props, data attributes, styling, and motion language remain LazyDesign-owned.
+
+Form CSS must consume `--ld-component-field-*`, `--ld-component-checkbox-*`, `--ld-component-switch-*`, and `--ld-component-select-*` tokens before semantic color tokens.

@@ -19,7 +19,7 @@ import {
   Sun,
   Zap,
 } from "lucide-react";
-import { type CSSProperties, useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Badge,
   Button,
@@ -30,9 +30,19 @@ import {
   CardHeader,
   CardMeta,
   CardTitle,
+  Checkbox,
+  Field,
+  FieldDescription,
+  FieldLabel,
   Heading,
   Icon,
   Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Switch,
   Tabs,
   TabsContent,
   TabsList,
@@ -79,19 +89,30 @@ const metrics = [
   { label: "Density", value: "0.86", detail: "compact grid" },
 ];
 
+const runtimeProfiles = [
+  { label: "Linear", value: "linear", disabled: false },
+  { label: "Material", value: "material", disabled: false },
+  { label: "Enterprise", value: "enterprise", disabled: true },
+] as const;
+
 export function App() {
   const [mode, setMode] = useState<LazyMode>("dark");
   const [seed, setSeed] = useState("#6d7cff");
   const [density, setDensity] = useState<"standard" | "compact">("compact");
+  const [runtimeProfile, setRuntimeProfile] = useState("linear");
+  const [reducedMotion, setReducedMotion] = useState(false);
+  const [telemetry, setTelemetry] = useState(true);
+  const [releaseGate, setReleaseGate] = useState("");
 
   const theme = useMemo(
     () => ({
       density,
       mode,
+      motion: reducedMotion ? "reduced" as const : "system" as const,
       seed: normalizeHex(seed),
       style: "linear" as const,
     }),
-    [density, mode, seed],
+    [density, mode, reducedMotion, seed],
   );
 
   useEffect(() => {
@@ -130,10 +151,10 @@ export function App() {
             <Card padding="sm" className="ltw-rail-card">
               <Stack gap="2">
                 <Badge intent="primary" variant="soft" iconStart={<Icon name="check" />}>
-                  v0.5 active
+                  v0.6 active
                 </Badge>
                 <Text tone="muted" variant="body-sm">
-                  Token runtime, Radix behavior, and LazyMotion are now driving the same interface.
+                  Token runtime, Radix forms, and LazyMotion are now driving the same interface.
                 </Text>
               </Stack>
             </Card>
@@ -306,15 +327,53 @@ export function App() {
 
                   <Card padding="md">
                     <CardHeader>
-                      <CardMeta>Macro rhythm</CardMeta>
-                      <CardTitle>Scroll-triggered information flow</CardTitle>
-                      <CardDescription>Page sections reveal through LazyMotion with the GSAP adapter behind the API.</CardDescription>
+                      <CardMeta>Runtime controls</CardMeta>
+                      <CardTitle>Motion Grid release settings</CardTitle>
+                      <CardDescription>Form components now operate inside the same token and motion contract.</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <div className="ltw-motion-bars" aria-hidden="true">
-                        {[48, 72, 58, 86, 64, 78].map((height, index) => (
-                          <span key={height} style={{ "--bar-height": `${height}%`, "--bar-index": index } as CSSProperties} />
-                        ))}
+                      <div className="ltw-settings">
+                        <Field className="ltw-setting-row">
+                          <FieldLabel>Runtime profile</FieldLabel>
+                          <Select value={runtimeProfile} onValueChange={setRuntimeProfile}>
+                            <SelectTrigger aria-label="Runtime profile">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {runtimeProfiles.map((profile) => (
+                                <SelectItem disabled={profile.disabled} key={profile.value} value={profile.value}>
+                                  {profile.label}
+                                </SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </Field>
+
+                        <Field className="ltw-setting-row">
+                          <Switch
+                            checked={reducedMotion}
+                            onCheckedChange={setReducedMotion}
+                          />
+                          <FieldLabel>Reduced interface motion</FieldLabel>
+                        </Field>
+
+                        <Field className="ltw-setting-row">
+                          <Checkbox
+                            checked={telemetry}
+                            onCheckedChange={(value) => setTelemetry(value === true)}
+                          />
+                          <FieldLabel>Runtime telemetry</FieldLabel>
+                        </Field>
+
+                        <Field className="ltw-setting-row ltw-setting-row--field" invalid={!releaseGate} required>
+                          <FieldLabel>Release gate</FieldLabel>
+                          <Input
+                            onChange={(event) => setReleaseGate(event.target.value)}
+                            placeholder="manual-approval"
+                            value={releaseGate}
+                          />
+                          <FieldDescription>Choose a gate before deployment.</FieldDescription>
+                        </Field>
                       </div>
                     </CardContent>
                   </Card>
@@ -326,8 +385,8 @@ export function App() {
                   {[
                     ["Source", "Brand seed normalized through Monet"],
                     ["Semantic", "Accessible roles on zinc surfaces"],
-                    ["Component", "Card, Tabs, Tooltip, Button, Input"],
-                    ["Runtime", "CSS variables and adapter-safe motion"],
+                    ["Component", "Button, Input, Field, Checkbox, Switch, Select"],
+                    ["Runtime", "CSS variables, Radix behavior, and adapter-safe motion"],
                   ].map(([title, body]) => (
                     <Card interactive key={title} padding="sm">
                       <CardHeader>
@@ -348,11 +407,12 @@ export function App() {
                 </CardHeader>
                 <CardContent>
                   <Box className="ltw-code" as="pre">
-                    <code>{`<LazyProvider theme={{ seed: "${seed}", mode: "${mode}", density: "${density}" }}>
+                    <code>{`<LazyProvider theme={{ seed: "${seed}", mode: "${mode}", density: "${density}", motion: "${reducedMotion ? "reduced" : "system"}" }}>
   <Tabs defaultValue="ops">
-    <Card interactive>
-      <Button intent="primary" motion="press" />
-    </Card>
+    <Field invalid>
+      <FieldLabel>Release gate</FieldLabel>
+      <Input />
+    </Field>
   </Tabs>
 </LazyProvider>`}</code>
                   </Box>

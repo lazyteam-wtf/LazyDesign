@@ -2,7 +2,7 @@
 
 LazyDesign is a modern adaptive React UI framework and interface design language for focused software work.
 
-Current status: `v0.5.0` component expansion and LazyTeam.wtf product example.
+Current status: `v0.6.0` form foundation for accessible, token-driven product controls.
 
 It combines:
 
@@ -29,7 +29,7 @@ The core package layer includes:
 - `src/core/motion.ts` - motion durations, easing, and named presets
 - `src/motion/` - adapter-safe LazyMotion runtime with Web Animations and GSAP adapter entry
 - `src/primitives/` - Box, Stack, Text, Surface, Divider, and Spacer
-- `src/components/` - Heading, Code, Icon, Button, Input, Badge, Card, Tabs, and Tooltip
+- `src/components/` - Heading, Code, Icon, Button, Input, Badge, Card, Tabs, Tooltip, Field, Checkbox, Switch, and Select
 - `src/react/` - React provider and framework entry
 
 The public token contract is namespaced:
@@ -97,7 +97,27 @@ v0.4.0 introduced the first developer-facing React components.
 
 ```tsx
 import { LazyProvider } from "lazydesign/react";
-import { Badge, Button, Card, Heading, Icon, Input, Tabs, TabsList, TabsTrigger } from "lazydesign/components";
+import {
+  Badge,
+  Button,
+  Card,
+  Checkbox,
+  Field,
+  FieldDescription,
+  FieldLabel,
+  Heading,
+  Icon,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Switch,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+} from "lazydesign/components";
 import "lazydesign/primitives/styles.css";
 import "lazydesign/components/styles.css";
 
@@ -105,7 +125,28 @@ export function Example() {
   return (
     <LazyProvider theme={{ seed: "#6750A4", mode: "dark" }}>
       <Heading level={1}>Launch workspace</Heading>
-      <Input label="Project name" placeholder="LazyDesign" state="default" />
+      <Field invalid required>
+        <FieldLabel>Release gate</FieldLabel>
+        <Input placeholder="manual-approval" />
+        <FieldDescription>Choose a gate before deployment.</FieldDescription>
+      </Field>
+      <Field>
+        <Switch />
+        <FieldLabel>Reduced interface motion</FieldLabel>
+      </Field>
+      <Field>
+        <Checkbox defaultChecked />
+        <FieldLabel>Runtime telemetry</FieldLabel>
+      </Field>
+      <Select defaultValue="linear">
+        <SelectTrigger aria-label="Runtime profile">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="linear">Linear</SelectItem>
+          <SelectItem value="material">Material</SelectItem>
+        </SelectContent>
+      </Select>
       <Button intent="primary" motion="press" iconStart={<Icon name="upload" />}>Launch</Button>
       <Card interactive>Token-driven surface</Card>
       <Tabs defaultValue="ops">
@@ -130,6 +171,10 @@ Implemented components:
 - `Card`
 - `Tabs`
 - `Tooltip`
+- `Field`
+- `Checkbox`
+- `Switch`
+- `Select`
 
 v0.4.1 hardens the first component APIs:
 
@@ -143,6 +188,13 @@ v0.5.0 expands the component layer:
 - `Tabs` uses Radix behavior while keeping LazyDesign visual tokens in control.
 - `Tooltip` uses Radix trigger/content behavior with a restrained overlay token contract.
 - The Vite preview now renders a LazyTeam.wtf industrial SaaS console instead of a static specification page.
+
+v0.6.0 adds the form foundation:
+
+- `Field` centralizes label, description, error, required, invalid, and disabled relationships.
+- `Checkbox` and `Switch` wrap Radix behavior with LazyDesign state, density, motion, and token styling.
+- `Select` exposes a composable Radix-style anatomy while keeping the public API adapter-free.
+- LazyTeam.wtf now includes a stateful Motion Grid settings surface that exercises Select, Switch, Checkbox, Field, and Input together.
 
 Larger components such as `Dialog`, `Toast`, `Table`, and navigation patterns still belong to later phases.
 
@@ -192,6 +244,7 @@ const recipe = useLazyMotionRecipe("slide");
 ```bash
 pnpm install
 pnpm dev
+pnpm test
 pnpm build
 ```
 

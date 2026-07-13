@@ -1,7 +1,7 @@
 # LazyDesign Specification
 
-Version: 0.5.0
-Status: Component Expansion and LazyTeam.wtf Example
+Version: 0.6.0
+Status: Form Foundation and LazyTeam.wtf Stateful Settings
 Scope: Design language, token runtime, theme resolver, component-token contract, executable motion runtime, primitive React layer, production-facing React components, product example interface
 
 LazyDesign is a flat-first adaptive interface language for focused software work. It is moving from a written specification into an executable design-system runtime.
@@ -28,7 +28,8 @@ Idea
   -> Component Runtime        v0.4.1 first layer hardening
   -> Motion Runtime           v0.4.2 adapter-safe execution layer
   -> Product Components       v0.5.0 Card, Tabs, Tooltip
-  -> Example Interface        v0.5.0 LazyTeam.wtf console
+  -> Form Foundation          v0.6.0 Field, Checkbox, Switch, Select
+  -> Example Interface        v0.6.0 LazyTeam.wtf stateful settings console
   -> Production Library       not started
 ```
 
@@ -38,11 +39,11 @@ Current evaluation:
 | --- | --- |
 | Core Runtime | 100% |
 | Token Architecture | 100% |
-| Theme Engine | 85% |
-| Motion Architecture | 78% |
-| Primitive System | 55% |
-| Component System | 35% |
-| Documentation | 80% |
+| Theme Engine | 88% |
+| Motion Architecture | 80% |
+| Primitive System | 58% |
+| Component System | 45% |
+| Documentation | 82% |
 
 ## Core Contract
 
@@ -155,6 +156,10 @@ Current component-token groups:
 - `card`
 - `tabs`
 - `tooltip`
+- `field`
+- `checkbox`
+- `switch`
+- `select`
 - `icon`
 - `code`
 
@@ -272,6 +277,14 @@ v0.5.0 expands the product component layer:
 - `Tooltip` uses Radix Tooltip behavior with restrained overlay tokens and reduced-motion support.
 - The local preview now renders a LazyTeam.wtf industrial command console built from LazyDesign primitives and components.
 
+v0.6.0 establishes the form foundation:
+
+- `Field` centralizes accessible label, description, error, required, invalid, and disabled relationships.
+- `Checkbox` wraps Radix Checkbox behavior while preserving LazyDesign size, state, motion, and component tokens.
+- `Switch` wraps Radix Switch behavior with the same token and Field integration contract.
+- `Select` exposes composable trigger, value, content, item, label, separator, and viewport pieces without exposing Radix as the product API.
+- LazyTeam.wtf now includes a stateful Motion Grid settings surface for runtime profile, reduced motion, telemetry, and release gate validation.
+
 ## Primitive API
 
 Primitive styles are imported explicitly:
@@ -316,7 +329,28 @@ Component styles are imported explicitly:
 
 ```tsx
 import { LazyProvider } from "lazydesign/react";
-import { Badge, Button, Card, Heading, Icon, Input, Tabs, TabsList, TabsTrigger, Tooltip } from "lazydesign/components";
+import {
+  Badge,
+  Button,
+  Card,
+  Checkbox,
+  Field,
+  FieldDescription,
+  FieldLabel,
+  Heading,
+  Icon,
+  Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Switch,
+  Tabs,
+  TabsList,
+  TabsTrigger,
+  Tooltip,
+} from "lazydesign/components";
 import "lazydesign/primitives/styles.css";
 import "lazydesign/components/styles.css";
 ```
@@ -337,10 +371,44 @@ import "lazydesign/components/styles.css";
 </Button>
 ```
 
-`Input` owns label, description, error, invalid state, and ARIA relationships.
+`Input` owns label, description, error, invalid state, and ARIA relationships. It also participates in `Field` when composed inside a form boundary.
 
 ```tsx
 <Input label="Project name" state="error" error="Required" />
+```
+
+`Field` owns shared form semantics for labels, descriptions, errors, required, invalid, and disabled state.
+
+```tsx
+<Field invalid required>
+  <FieldLabel>Release gate</FieldLabel>
+  <Input />
+  <FieldDescription>Choose a gate before deployment.</FieldDescription>
+</Field>
+```
+
+`Checkbox`, `Switch`, and `Select` wrap behavior primitives while keeping LazyDesign's token, density, and motion contract in control.
+
+```tsx
+<Field>
+  <Switch />
+  <FieldLabel>Reduced interface motion</FieldLabel>
+</Field>
+
+<Field>
+  <Checkbox defaultChecked />
+  <FieldLabel>Runtime telemetry</FieldLabel>
+</Field>
+
+<Select defaultValue="linear">
+  <SelectTrigger aria-label="Runtime profile">
+    <SelectValue />
+  </SelectTrigger>
+  <SelectContent>
+    <SelectItem value="linear">Linear</SelectItem>
+    <SelectItem value="material">Material</SelectItem>
+  </SelectContent>
+</Select>
 ```
 
 `Icon` resolves registry names instead of exposing a specific icon package as public API.
@@ -351,7 +419,7 @@ import "lazydesign/components/styles.css";
 
 `Badge`, `Icon`, `Heading`, and `Code` are the first typography and feedback-adjacent building blocks.
 
-`Card`, `Tabs`, and `Tooltip` are the first production-facing composition and behavior components.
+`Card`, `Tabs`, `Tooltip`, `Field`, `Checkbox`, `Switch`, and `Select` are the first production-facing composition and behavior components.
 
 ## LazyDesign Refusals
 

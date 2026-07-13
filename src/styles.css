@@ -7,6 +7,7 @@
 
 html {
   background: color-mix(in srgb, black, white 4%);
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
@@ -61,6 +62,7 @@ pre {
   display: grid;
   grid-template-columns: 252px minmax(0, 1fr);
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .ltw-sidebar {
@@ -126,6 +128,8 @@ pre {
   display: grid;
   align-content: start;
   gap: var(--ld-space-1);
+  min-width: 0;
+  max-width: 100%;
 }
 
 .ltw-nav__item {
@@ -317,7 +321,8 @@ pre {
 
 .ltw-pipeline,
 .ltw-issue-list,
-.ltw-token-stack {
+.ltw-token-stack,
+.ltw-settings {
   display: grid;
   gap: var(--ld-space-2);
 }
@@ -390,6 +395,46 @@ pre {
   gap: var(--ld-space-2);
 }
 
+.ltw-settings {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.ltw-setting-row {
+  display: grid;
+  grid-template-columns: minmax(136px, 0.42fr) minmax(0, 1fr);
+  align-items: center;
+  min-height: 46px;
+  padding: var(--ld-space-2);
+  border: 1px solid var(--ld-component-surface-border);
+  border-radius: var(--ld-shape-corner-small);
+  background: var(--ld-component-surface-level-2);
+}
+
+.ltw-setting-row > .ld-checkbox,
+.ltw-setting-row > .ld-switch {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.ltw-setting-row > .ld-checkbox + .ld-field__label,
+.ltw-setting-row > .ld-switch + .ld-field__label {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.ltw-setting-row .ld-select__trigger,
+.ltw-setting-row .ld-input {
+  width: 100%;
+}
+
+.ltw-setting-row--field {
+  align-items: start;
+}
+
+.ltw-setting-row--field > .ld-field {
+  gap: var(--ld-space-1);
+}
+
 .ltw-motion-bars {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -436,7 +481,10 @@ pre {
 
 button:focus-visible,
 a:focus-visible,
-input:focus-visible {
+input:focus-visible,
+[role="checkbox"]:focus-visible,
+[role="switch"]:focus-visible,
+[role="combobox"]:focus-visible {
   outline: none;
   box-shadow: var(--ld-component-control-focus-ring);
 }
@@ -525,6 +573,19 @@ input:focus-visible {
 
   .ltw-issue {
     grid-template-columns: 1fr;
+  }
+
+  .ltw-setting-row {
+    grid-template-columns: 1fr;
+    gap: var(--ld-space-2);
+  }
+
+  .ltw-setting-row > .ld-checkbox,
+  .ltw-setting-row > .ld-switch,
+  .ltw-setting-row > .ld-checkbox + .ld-field__label,
+  .ltw-setting-row > .ld-switch + .ld-field__label {
+    grid-column: auto;
+    grid-row: auto;
   }
 
   .ltw-motion-bars {

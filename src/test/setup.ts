@@ -4,6 +4,22 @@ import { afterEach } from "vitest";
 
 afterEach(() => cleanup());
 
+if (!window.matchMedia) {
+  Object.defineProperty(window, "matchMedia", {
+    configurable: true,
+    value: (query: string): MediaQueryList => ({
+      addEventListener: () => undefined,
+      addListener: () => undefined,
+      dispatchEvent: () => false,
+      matches: false,
+      media: query,
+      onchange: null,
+      removeEventListener: () => undefined,
+      removeListener: () => undefined,
+    }),
+  });
+}
+
 if (!Element.prototype.scrollIntoView) {
   Object.defineProperty(Element.prototype, "scrollIntoView", {
     configurable: true,
