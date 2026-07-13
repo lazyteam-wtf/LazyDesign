@@ -125,8 +125,12 @@
   background: var(--ld-component-button-danger-background-pressed);
 }
 
+.ld-button[data-motion="soft"]:hover:not(:disabled) {
+  transform: var(--ld-component-control-motion-hover-transform);
+}
+
 .ld-button[data-motion="press"]:active:not(:disabled) {
-  transform: translateY(1px);
+  transform: var(--ld-component-control-motion-press-transform);
 }
 
 .ld-button:focus-visible,
@@ -382,5 +386,10 @@ code.ld-code {
 
   .ld-button__spinner {
     animation-duration: var(--ld-motion-duration-emphasized);
+  }
+
+  .ld-button[data-motion="soft"]:hover:not(:disabled),
+  .ld-button[data-motion="press"]:active:not(:disabled) {
+    transform: none;
   }
 }

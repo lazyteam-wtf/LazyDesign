@@ -21,6 +21,7 @@ export {
   createMotionVars,
   lazyMotionPresets,
   lazyMotionValues,
+  type LazyMotionPreference,
   type LazyMotionPreset,
   type LazyMotionRecipe,
 } from "./motion";

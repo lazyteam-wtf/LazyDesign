@@ -41,6 +41,8 @@ export const lazyComponentTokenVars = {
     focusRing: "--ld-component-control-focus-ring",
     hover: "--ld-component-control-hover",
     pressed: "--ld-component-control-pressed",
+    motionHoverTransform: "--ld-component-control-motion-hover-transform",
+    motionPressTransform: "--ld-component-control-motion-press-transform",
   },
   button: {
     background: "--ld-component-button-background",
@@ -143,6 +145,8 @@ export type LazyComponentTheme = {
     focusRing: string;
     hover: string;
     pressed: string;
+    motionHoverTransform: string;
+    motionPressTransform: string;
   };
   button: {
     background: string;
@@ -245,6 +249,8 @@ export function createComponentTheme(input: LazyComponentThemeInput): LazyCompon
       focusRing: vars[lazyComponentTokenVars.control.focusRing],
       hover: vars[lazyComponentTokenVars.control.hover],
       pressed: vars[lazyComponentTokenVars.control.pressed],
+      motionHoverTransform: vars[lazyComponentTokenVars.control.motionHoverTransform],
+      motionPressTransform: vars[lazyComponentTokenVars.control.motionPressTransform],
     },
     button: {
       background: vars[lazyComponentTokenVars.button.background],
@@ -342,6 +348,8 @@ export function createComponentVars(input: LazyComponentThemeInput): LazyCssVars
     [lazyComponentTokenVars.control.focusRing]: `var(${lazyTokenVars.color.focusRing})`,
     [lazyComponentTokenVars.control.hover]: `var(${lazyTokenVars.color.stateHover})`,
     [lazyComponentTokenVars.control.pressed]: `var(${lazyTokenVars.color.statePressed})`,
+    [lazyComponentTokenVars.control.motionHoverTransform]: "translateY(-1px)",
+    [lazyComponentTokenVars.control.motionPressTransform]: "translateY(1px)",
     [lazyComponentTokenVars.button.background]: `var(${lazyTokenVars.color.surface})`,
     [lazyComponentTokenVars.button.foreground]: `var(${lazyTokenVars.color.onSurface})`,
     [lazyComponentTokenVars.button.border]: `var(${lazyTokenVars.color.borderMuted})`,

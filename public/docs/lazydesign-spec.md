@@ -1,8 +1,8 @@
 # LazyDesign Specification
 
-Version: 0.4.1
-Status: React Component Quality Hardening
-Scope: Design language, token runtime, theme resolver, component-token contract, motion recipes, primitive React layer, first React components
+Version: 0.4.2
+Status: Adapter-Safe LazyMotion Runtime
+Scope: Design language, token runtime, theme resolver, component-token contract, executable motion runtime, primitive React layer, first React components
 
 LazyDesign is a flat-first adaptive interface language for focused software work. It is moving from a written specification into an executable design-system runtime.
 
@@ -26,6 +26,7 @@ Idea
   -> Component Token Layer    v0.2.2
   -> Primitive System         v0.3.0
   -> Component Runtime        v0.4.1 first layer hardening
+  -> Motion Runtime           v0.4.2 adapter-safe execution layer
   -> Production Library       not started
 ```
 
@@ -36,7 +37,7 @@ Current evaluation:
 | Core Runtime | 100% |
 | Token Architecture | 100% |
 | Theme Engine | 85% |
-| Motion Architecture | 70% |
+| Motion Architecture | 78% |
 | Primitive System | 55% |
 | Component System | 25% |
 | Documentation | 80% |
@@ -200,6 +201,25 @@ import { createMotionRecipe } from "lazydesign/motion";
 const recipe = createMotionRecipe("reveal", "system");
 ```
 
+v0.4.2 adds an executable runtime:
+
+```ts
+import { createLazyMotion } from "lazydesign/motion";
+
+const motion = createLazyMotion();
+motion.animate(node, "reveal");
+```
+
+The default adapter uses the Web Animations API. GSAP and ScrollTrigger are available through a separate adapter entry:
+
+```ts
+import { createLazyMotion } from "lazydesign/motion";
+import { lazyGsapMotionAdapter } from "lazydesign/motion/gsap";
+
+const motion = createLazyMotion({ adapter: lazyGsapMotionAdapter });
+motion.scroll(".section", "reveal", { start: "top 82%", scrub: 0.4 });
+```
+
 GSAP and ScrollTrigger may be used as adapters. Component APIs must not expose GSAP timelines directly.
 
 ## Component Roadmap
@@ -232,6 +252,13 @@ v0.4.1 hardens the first component layer:
 - `Button` supports `motion="none | soft | press"` without exposing an animation adapter.
 - `Input` supports explicit `state="default | error"` while keeping `error` and `invalid` ergonomic.
 - `Icon` supports a registry-backed `name` API plus `registerIcon()` and `glyph` escape hatches.
+
+v0.4.2 introduces the LazyMotion runtime layer:
+
+- `createLazyMotion()` executes named recipes through an adapter contract.
+- `lazyWebMotionAdapter` is the default lightweight adapter.
+- `lazyGsapMotionAdapter` lives behind `lazydesign/motion/gsap`.
+- React hooks such as `useLazyMotionRecipe()` read `LazyProvider` theme and reduced-motion preferences.
 
 ## Primitive API
 
@@ -334,6 +361,7 @@ LazyDesign refuses:
 - `src/core/color.ts`: Monet-powered color roles
 - `src/core/components.ts`: component-token contract
 - `src/core/motion.ts`: motion tokens and recipes
+- `src/motion/`: LazyMotion runtime, Web Animations adapter, GSAP adapter, and React hooks
 - `src/primitives/`: primitive React layer
 - `src/components/`: first React component layer
 - `src/react/`: React provider and framework entry

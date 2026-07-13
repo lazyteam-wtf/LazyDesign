@@ -2,7 +2,7 @@
 
 LazyDesign is a modern adaptive React UI framework and interface design language for focused software work.
 
-Current status: `v0.4.1` React component quality hardening.
+Current status: `v0.4.2` adapter-safe LazyMotion runtime.
 
 It combines:
 
@@ -27,6 +27,7 @@ The core package layer includes:
 - `src/core/registry.ts` - token metadata for docs, IDE hints, Figma sync, and migration tooling
 - `src/core/radius.ts` - professional and expressive radius scales
 - `src/core/motion.ts` - motion durations, easing, and named presets
+- `src/motion/` - adapter-safe LazyMotion runtime with Web Animations and GSAP adapter entry
 - `src/primitives/` - Box, Stack, Text, Surface, Divider, and Spacer
 - `src/components/` - Heading, Code, Icon, Button, Input, and Badge
 - `src/react/` - React provider and framework entry
@@ -128,6 +129,35 @@ v0.4.1 hardens the first component APIs:
 - `Icon` supports `name`, `glyph`, and `registerIcon()` so the public API is not tied to a specific icon package
 
 Larger components such as `Dialog`, `Toast`, `Table`, and `Tabs` still belong to later phases.
+
+## Motion Runtime
+
+v0.4.2 introduces the executable LazyMotion layer. The public contract stays recipe-based:
+
+```tsx
+import { createLazyMotion } from "lazydesign/motion";
+
+const motion = createLazyMotion();
+motion.animate(node, "reveal");
+```
+
+The default adapter uses the Web Animations API. GSAP and ScrollTrigger are available through a separate adapter entry so application bundles only opt in when they need advanced orchestration:
+
+```tsx
+import { createLazyMotion } from "lazydesign/motion";
+import { lazyGsapMotionAdapter } from "lazydesign/motion/gsap";
+
+const motion = createLazyMotion({ adapter: lazyGsapMotionAdapter });
+motion.scroll(".section", "reveal", { start: "top 82%", scrub: 0.4 });
+```
+
+React helpers read the active `LazyProvider` theme and resolve reduced-motion behavior:
+
+```tsx
+import { useLazyMotionRecipe } from "lazydesign/react";
+
+const recipe = useLazyMotionRecipe("slide");
+```
 
 ## Files
 

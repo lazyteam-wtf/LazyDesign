@@ -347,7 +347,7 @@ export function App() {
         <header className="spec-toolbar">
           <div className="search-field">
             <Search size={16} />
-            <span>LazyDesign Specification v0.4.1</span>
+            <span>LazyDesign Specification v0.4.2</span>
           </div>
           <div className="toolbar-actions">
             <button className="icon-button" onClick={() => setMode(mode === "light" ? "dark" : "light")} type="button">

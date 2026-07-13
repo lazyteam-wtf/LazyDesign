@@ -1,7 +1,7 @@
 {
   "name": "lazydesign",
   "private": true,
-  "version": "0.4.1",
+  "version": "0.4.2",
   "type": "module",
   "exports": {
     ".": "./src/index.ts",
@@ -12,7 +12,9 @@
     "./components": "./src/components/index.ts",
     "./components/styles.css": "./src/components/styles.css",
     "./registry": "./src/core/registry.ts",
-    "./motion": "./src/core/motion.ts",
+    "./motion": "./src/motion/index.ts",
+    "./motion/gsap": "./src/motion/gsap.ts",
+    "./motion/react": "./src/motion/react.ts",
     "./react": "./src/react/index.ts",
     "./primitives": "./src/primitives/index.ts",
     "./primitives/styles.css": "./src/primitives/styles.css"
