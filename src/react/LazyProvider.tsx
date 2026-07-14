@@ -50,7 +50,38 @@ export function LazyProvider<Element extends ElementType = "div">({
   useEffect(() => {
     if (!applyToDocument || typeof document === "undefined") return;
 
+    const target = document.documentElement;
+    const previousTheme = target.dataset.theme;
+    const previousThemeStyle = target.dataset.themeStyle;
+    const previousVars = new Map<string, string>();
+
+    for (const key of Object.keys(resolvedTheme.vars)) {
+      previousVars.set(key, target.style.getPropertyValue(key));
+    }
+
     resolvedTheme.apply(document.documentElement);
+
+    return () => {
+      for (const [key, value] of previousVars) {
+        if (value) {
+          target.style.setProperty(key, value);
+        } else {
+          target.style.removeProperty(key);
+        }
+      }
+
+      if (previousTheme) {
+        target.dataset.theme = previousTheme;
+      } else {
+        delete target.dataset.theme;
+      }
+
+      if (previousThemeStyle) {
+        target.dataset.themeStyle = previousThemeStyle;
+      } else {
+        delete target.dataset.themeStyle;
+      }
+    };
   }, [applyToDocument, resolvedTheme]);
 
   return createElement(
