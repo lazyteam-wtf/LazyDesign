@@ -410,6 +410,10 @@ pre {
   background: var(--ld-component-surface-level-2);
 }
 
+.ltw-setting-row--inline {
+  grid-template-columns: minmax(136px, 0.42fr) minmax(0, 1fr) auto;
+}
+
 .ltw-setting-row > .ld-checkbox,
 .ltw-setting-row > .ld-switch {
   grid-column: 2;
@@ -425,6 +429,29 @@ pre {
 .ltw-setting-row .ld-select__trigger,
 .ltw-setting-row .ld-input {
   width: 100%;
+}
+
+.ltw-overlay-summary {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.45fr) minmax(0, 1fr);
+  gap: var(--ld-space-2);
+  min-width: 0;
+  padding: var(--ld-space-3);
+  border: 1px solid var(--ld-component-surface-border);
+  border-radius: var(--ld-shape-corner-small);
+  background: var(--ld-component-surface-level-2);
+}
+
+.ltw-overlay-summary span {
+  color: var(--ld-component-text-muted);
+  font: var(--ld-typography-body-sm);
+}
+
+.ltw-overlay-summary strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: var(--ld-component-text-primary);
+  font: var(--ld-typography-label);
 }
 
 .ltw-setting-row--field {
@@ -578,6 +605,11 @@ input:focus-visible,
   .ltw-setting-row {
     grid-template-columns: 1fr;
     gap: var(--ld-space-2);
+  }
+
+  .ltw-overlay-summary,
+  .ltw-setting-row--inline {
+    grid-template-columns: 1fr;
   }
 
   .ltw-setting-row > .ld-checkbox,

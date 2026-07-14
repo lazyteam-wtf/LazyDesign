@@ -31,6 +31,22 @@ import {
   CardMeta,
   CardTitle,
   Checkbox,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
   Field,
   FieldDescription,
   FieldLabel,
@@ -43,10 +59,21 @@ import {
   SelectTrigger,
   SelectValue,
   Switch,
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverTitle,
+  PopoverTrigger,
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
+  Toast,
+  ToastClose,
+  ToastDescription,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
   Tooltip,
   TooltipContent,
   TooltipProvider,
@@ -103,6 +130,8 @@ export function App() {
   const [reducedMotion, setReducedMotion] = useState(false);
   const [telemetry, setTelemetry] = useState(true);
   const [releaseGate, setReleaseGate] = useState("");
+  const [toastOpen, setToastOpen] = useState(false);
+  const [lastWorkflow, setLastWorkflow] = useState("Sequence queued");
 
   const theme = useMemo(
     () => ({
@@ -113,6 +142,11 @@ export function App() {
       style: "linear" as const,
     }),
     [density, mode, reducedMotion, seed],
+  );
+
+  const selectedRuntimeProfile = useMemo(
+    () => runtimeProfiles.find((profile) => profile.value === runtimeProfile) ?? runtimeProfiles[0],
+    [runtimeProfile],
   );
 
   useEffect(() => {
@@ -126,7 +160,8 @@ export function App() {
 
   return (
     <LazyProvider className="ltw-root" theme={theme}>
-      <TooltipProvider>
+      <ToastProvider>
+        <TooltipProvider>
         <div className="ltw-shell">
           <aside className="ltw-sidebar" aria-label="LazyTeam workspace navigation">
             <a className="ltw-brand" href="#command">
@@ -151,10 +186,10 @@ export function App() {
             <Card padding="sm" className="ltw-rail-card">
               <Stack gap="2">
                 <Badge intent="primary" variant="soft" iconStart={<Icon name="check" />}>
-                  v0.6 active
+                  v0.7 active
                 </Badge>
                 <Text tone="muted" variant="body-sm">
-                  Token runtime, Radix forms, and LazyMotion are now driving the same interface.
+                  Token runtime, Radix forms, overlays, and LazyMotion are now driving the same interface.
                 </Text>
               </Stack>
             </Card>
@@ -312,15 +347,83 @@ export function App() {
                     </CardHeader>
                     <CardContent>
                       <div className="ltw-control-lab">
-                        <Button intent="primary" iconStart={<Icon glyph={Play} />} motion="press">
-                          Run sequence
-                        </Button>
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button intent="primary" iconStart={<Icon glyph={Play} />} motion="press">
+                              Run sequence
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent motion="scale">
+                            <DialogHeader>
+                              <DialogTitle>Run deployment sequence</DialogTitle>
+                              <DialogDescription>Confirm runtime changes before execution.</DialogDescription>
+                            </DialogHeader>
+                            <div className="ltw-overlay-summary">
+                              <span>Runtime profile</span>
+                              <strong>{selectedRuntimeProfile.label}</strong>
+                              <span>Telemetry</span>
+                              <strong>{telemetry ? "Enabled" : "Disabled"}</strong>
+                              <span>Release gate</span>
+                              <strong>{releaseGate || "manual approval required"}</strong>
+                            </div>
+                            <DialogFooter>
+                              <DialogClose asChild>
+                                <Button variant="outline">Cancel</Button>
+                              </DialogClose>
+                              <DialogClose asChild>
+                                <Button
+                                  intent="primary"
+                                  onClick={() => {
+                                    setLastWorkflow("Sequence queued");
+                                    setToastOpen(true);
+                                  }}
+                                >
+                                  Confirm sequence
+                                </Button>
+                              </DialogClose>
+                            </DialogFooter>
+                          </DialogContent>
+                        </Dialog>
                         <Button iconStart={<Icon glyph={Zap} />} motion="soft" variant="outline">
                           Soft hover
                         </Button>
-                        <Button iconStart={<Icon glyph={Settings2} />} variant="ghost">
-                          Calibrate
-                        </Button>
+                        <Drawer>
+                          <DrawerTrigger asChild>
+                            <Button iconStart={<Icon glyph={Settings2} />} variant="ghost">
+                              Calibrate
+                            </Button>
+                          </DrawerTrigger>
+                          <DrawerContent side="right" motion="slide">
+                            <DrawerHeader>
+                              <DrawerTitle>Calibrate runtime</DrawerTitle>
+                              <DrawerDescription>Adjust the current motion grid profile.</DrawerDescription>
+                            </DrawerHeader>
+                            <div className="ltw-overlay-summary">
+                              <span>Motion</span>
+                              <strong>{reducedMotion ? "Reduced" : "System"}</strong>
+                              <span>Density</span>
+                              <strong>{density}</strong>
+                              <span>Profile</span>
+                              <strong>{selectedRuntimeProfile.label}</strong>
+                            </div>
+                            <DrawerFooter>
+                              <DrawerClose asChild>
+                                <Button variant="outline">Close</Button>
+                              </DrawerClose>
+                              <DrawerClose asChild>
+                                <Button
+                                  intent="primary"
+                                  onClick={() => {
+                                    setLastWorkflow("Calibration saved");
+                                    setToastOpen(true);
+                                  }}
+                                >
+                                  Save calibration
+                                </Button>
+                              </DrawerClose>
+                            </DrawerFooter>
+                          </DrawerContent>
+                        </Drawer>
                       </div>
                     </CardContent>
                   </Card>
@@ -333,7 +436,7 @@ export function App() {
                     </CardHeader>
                     <CardContent>
                       <div className="ltw-settings">
-                        <Field className="ltw-setting-row">
+                        <Field className="ltw-setting-row ltw-setting-row--inline">
                           <FieldLabel>Runtime profile</FieldLabel>
                           <Select value={runtimeProfile} onValueChange={setRuntimeProfile}>
                             <SelectTrigger aria-label="Runtime profile">
@@ -347,6 +450,19 @@ export function App() {
                               ))}
                             </SelectContent>
                           </Select>
+                          <Popover>
+                            <PopoverTrigger asChild>
+                              <Button aria-label="Runtime profile summary" size="sm" variant="ghost">
+                                <Icon glyph={Radar} />
+                              </Button>
+                            </PopoverTrigger>
+                            <PopoverContent size="sm">
+                              <PopoverTitle>Linear density profile</PopoverTitle>
+                              <PopoverDescription>
+                                Runtime surfaces stay flat, compact, and motion-aware.
+                              </PopoverDescription>
+                            </PopoverContent>
+                          </Popover>
                         </Field>
 
                         <Field className="ltw-setting-row">
@@ -448,7 +564,14 @@ export function App() {
             </section>
           </main>
         </div>
-      </TooltipProvider>
+          <Toast open={toastOpen} onOpenChange={setToastOpen} intent="success">
+            <ToastTitle>{lastWorkflow}</ToastTitle>
+            <ToastDescription>LazyDesign runtime state was captured.</ToastDescription>
+            <ToastClose />
+          </Toast>
+          <ToastViewport />
+        </TooltipProvider>
+      </ToastProvider>
     </LazyProvider>
   );
 }

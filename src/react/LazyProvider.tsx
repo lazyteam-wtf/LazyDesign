@@ -1,6 +1,7 @@
 import {
   createContext,
   createElement,
+  useEffect,
   useContext,
   useMemo,
   type ComponentPropsWithoutRef,
@@ -22,12 +23,14 @@ const LazyThemeContext = createContext<LazyProviderContextValue>({
 });
 
 export type LazyProviderProps<Element extends ElementType = "div"> = {
+  applyToDocument?: boolean;
   as?: Element;
   children?: ReactNode;
   theme?: LazyThemeInput | LazyTheme;
 } & Omit<ComponentPropsWithoutRef<Element>, "as" | "color">;
 
 export function LazyProvider<Element extends ElementType = "div">({
+  applyToDocument = true,
   as,
   children,
   theme = defaultThemeInput,
@@ -43,6 +46,12 @@ export function LazyProvider<Element extends ElementType = "div">({
     ...(style as LazyStyle | undefined),
   };
   const contextValue = useMemo(() => ({ theme: resolvedTheme }), [resolvedTheme]);
+
+  useEffect(() => {
+    if (!applyToDocument || typeof document === "undefined") return;
+
+    resolvedTheme.apply(document.documentElement);
+  }, [applyToDocument, resolvedTheme]);
 
   return createElement(
     LazyThemeContext.Provider,
