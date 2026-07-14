@@ -2,7 +2,7 @@
 
 LazyDesign is a modern adaptive React UI framework and interface design language for focused software work.
 
-Current status: `v0.6.0` form foundation for accessible, token-driven product controls.
+Current status: `v0.7.0` interaction layer for accessible overlays, feedback, and motion physics.
 
 It combines:
 
@@ -29,7 +29,7 @@ The core package layer includes:
 - `src/core/motion.ts` - motion durations, easing, and named presets
 - `src/motion/` - adapter-safe LazyMotion runtime with Web Animations and GSAP adapter entry
 - `src/primitives/` - Box, Stack, Text, Surface, Divider, and Spacer
-- `src/components/` - Heading, Code, Icon, Button, Input, Badge, Card, Tabs, Tooltip, Field, Checkbox, Switch, and Select
+- `src/components/` - Heading, Code, Icon, Button, Input, Badge, Card, Tabs, Tooltip, Field, Checkbox, Switch, Select, Dialog, Drawer, Popover, and Toast
 - `src/react/` - React provider and framework entry
 
 The public token contract is namespaced:
@@ -117,6 +117,11 @@ import {
   Tabs,
   TabsList,
   TabsTrigger,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
 } from "lazydesign/components";
 import "lazydesign/primitives/styles.css";
 import "lazydesign/components/styles.css";
@@ -155,6 +160,15 @@ export function Example() {
         </TabsList>
       </Tabs>
       <Badge intent="primary">v0.4</Badge>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button intent="primary">Run sequence</Button>
+        </DialogTrigger>
+        <DialogContent motion="scale">
+          <DialogTitle>Run deployment sequence</DialogTitle>
+          <DialogDescription>Confirm runtime changes.</DialogDescription>
+        </DialogContent>
+      </Dialog>
     </LazyProvider>
   );
 }
@@ -196,7 +210,16 @@ v0.6.0 adds the form foundation:
 - `Select` exposes a composable Radix-style anatomy while keeping the public API adapter-free.
 - LazyTeam.wtf now includes a stateful Motion Grid settings surface that exercises Select, Switch, Checkbox, Field, and Input together.
 
-Larger components such as `Dialog`, `Toast`, `Table`, and navigation patterns still belong to later phases.
+v0.7.0 adds the interaction layer:
+
+- `Dialog` for modal confirmation and editing workflows.
+- `Drawer` for side-panel SaaS tasks.
+- `Popover` for contextual inspection.
+- `Toast` for non-blocking status feedback.
+- Motion physics recipes such as `overlay-fade`, `dialog-scale`, `drawer-slide`, `toast-slide`, `press-crisp`, and `reveal-flow`.
+- LazyTeam.wtf now includes Run sequence, Calibrate, Runtime profile summary, and Toast feedback workflows.
+
+Larger components such as `Table`, richer navigation, and form systems still belong to later phases.
 
 ## Motion Runtime
 

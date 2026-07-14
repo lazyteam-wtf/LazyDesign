@@ -1,7 +1,7 @@
 # LazyDesign Component Policy
 
 Status: stable draft
-Current implementation phase: v0.6.0 Form Foundation Layer
+Current implementation phase: v0.7.0 Interaction Layer
 
 LazyDesign components are not allowed to bypass the runtime contract. They are composed from primitives, component tokens, typed props, accessible behavior, and motion recipes.
 
@@ -49,9 +49,16 @@ v0.6.0 establishes the accessible form foundation:
 - `Switch`
 - `Select`
 
+v0.7.0 implements the interaction layer:
+
+- `Dialog`
+- `Drawer`
+- `Popover`
+- `Toast`
+
 Behavior-heavy components should prefer Radix primitives when available. LazyDesign owns the token contract, visual state mapping, density, and motion recipe; Radix owns the interaction semantics and focus behavior.
 
-Next component phases may add `Dialog`, `Drawer`, `Toast`, `Table`, richer form patterns, and navigation patterns.
+Next component phases may add `Table`, richer form patterns, and navigation patterns.
 
 ## Component Requirements
 
@@ -124,3 +131,13 @@ Form controls must call `useFieldControlProps()` when they can participate in `F
 `Checkbox`, `Switch`, and `Select` may wrap Radix primitives for behavior, but their public props, data attributes, styling, and motion language remain LazyDesign-owned.
 
 Form CSS must consume `--ld-component-field-*`, `--ld-component-checkbox-*`, `--ld-component-switch-*`, and `--ld-component-select-*` tokens before semantic color tokens.
+
+## Overlay Guidance
+
+Dialog, Drawer, Popover, and Toast must use Radix behavior where available, but the public API, token contract, visual state mapping, and motion language remain LazyDesign-owned.
+
+Overlay CSS must consume `--ld-component-overlay-*`, `--ld-component-dialog-*`, `--ld-component-drawer-*`, `--ld-component-popover-*`, and `--ld-component-toast-*` tokens before semantic tokens.
+
+Overlay motion must use named LazyDesign recipes and must not expose GSAP, ScrollTrigger, Web Animations, or Radix internals.
+
+`LazyProvider` must keep portal-rendered overlays inside the resolved theme contract. If an overlay renders outside the provider DOM subtree, it must still receive the active LazyDesign CSS variables.

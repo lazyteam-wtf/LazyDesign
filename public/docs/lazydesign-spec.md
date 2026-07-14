@@ -1,7 +1,7 @@
 # LazyDesign Specification
 
-Version: 0.6.0
-Status: Form Foundation and LazyTeam.wtf Stateful Settings
+Version: 0.7.0
+Status: Interaction Layer and Motion Physics
 Scope: Design language, token runtime, theme resolver, component-token contract, executable motion runtime, primitive React layer, production-facing React components, product example interface
 
 LazyDesign is a flat-first adaptive interface language for focused software work. It is moving from a written specification into an executable design-system runtime.
@@ -29,7 +29,9 @@ Idea
   -> Motion Runtime           v0.4.2 adapter-safe execution layer
   -> Product Components       v0.5.0 Card, Tabs, Tooltip
   -> Form Foundation          v0.6.0 Field, Checkbox, Switch, Select
-  -> Example Interface        v0.6.0 LazyTeam.wtf stateful settings console
+  -> Interaction Layer        v0.7.0 Dialog, Drawer, Popover, Toast
+  -> Motion Physics           v0.7.0 overlay and press recipes
+  -> Example Interface        v0.7.0 LazyTeam.wtf overlay workflow console
   -> Production Library       not started
 ```
 
@@ -42,8 +44,8 @@ Current evaluation:
 | Theme Engine | 88% |
 | Motion Architecture | 80% |
 | Primitive System | 58% |
-| Component System | 45% |
-| Documentation | 82% |
+| Component System | 58% |
+| Documentation | 86% |
 
 ## Core Contract
 
@@ -156,6 +158,11 @@ Current component-token groups:
 - `card`
 - `tabs`
 - `tooltip`
+- `overlay`
+- `dialog`
+- `drawer`
+- `popover`
+- `toast`
 - `field`
 - `checkbox`
 - `switch`
@@ -202,6 +209,17 @@ Available recipe names:
 - `scale`
 - `reveal`
 - `scroll`
+- `overlay-fade`
+- `dialog-scale`
+- `dialog-shift`
+- `drawer-slide`
+- `popover-scale`
+- `popover-shift`
+- `toast-slide`
+- `toast-fade`
+- `press-crisp`
+- `press-soft`
+- `reveal-flow`
 
 Example:
 
@@ -254,7 +272,7 @@ v0.4.0 begins the React component layer:
 - `Input`
 - `Badge`
 
-This layer is intentionally small. Larger behavior-heavy components such as `Dialog`, `Toast`, `Table`, and `Menu` come after the first component API settles.
+This layer was intentionally small. Behavior-heavy components moved into the v0.7 interaction layer after the first component API settled.
 
 v0.4.1 hardens the first component layer:
 
@@ -284,6 +302,15 @@ v0.6.0 establishes the form foundation:
 - `Switch` wraps Radix Switch behavior with the same token and Field integration contract.
 - `Select` exposes composable trigger, value, content, item, label, separator, and viewport pieces without exposing Radix as the product API.
 - LazyTeam.wtf now includes a stateful Motion Grid settings surface for runtime profile, reduced motion, telemetry, and release gate validation.
+
+v0.7.0 establishes the interaction layer:
+
+- `Dialog` wraps Radix Dialog behavior for modal confirmation and editing workflows while LazyDesign owns tokens, anatomy, and motion.
+- `Drawer` composes Radix Dialog behavior into side-panel SaaS workflows with a separate public API.
+- `Popover` provides contextual inspection surfaces without exposing Radix internals.
+- `Toast` provides non-blocking feedback with semantic `neutral`, `success`, and `danger` intent.
+- Overlay CSS consumes `--ld-component-overlay-*`, `--ld-component-dialog-*`, `--ld-component-drawer-*`, `--ld-component-popover-*`, and `--ld-component-toast-*`.
+- LazyTeam.wtf now includes Run sequence, Calibrate, Runtime profile summary, and Toast feedback workflows.
 
 ## Primitive API
 
@@ -350,6 +377,23 @@ import {
   TabsList,
   TabsTrigger,
   Tooltip,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+  DialogTrigger,
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+  Popover,
+  PopoverContent,
+  PopoverTitle,
+  PopoverTrigger,
+  Toast,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
 } from "lazydesign/components";
 import "lazydesign/primitives/styles.css";
 import "lazydesign/components/styles.css";
@@ -420,6 +464,45 @@ import "lazydesign/components/styles.css";
 `Badge`, `Icon`, `Heading`, and `Code` are the first typography and feedback-adjacent building blocks.
 
 `Card`, `Tabs`, `Tooltip`, `Field`, `Checkbox`, `Switch`, and `Select` are the first production-facing composition and behavior components.
+
+`Dialog`, `Drawer`, `Popover`, and `Toast` are the first interaction-layer components.
+
+```tsx
+<ToastProvider>
+  <Dialog>
+    <DialogTrigger asChild>
+      <Button intent="primary">Run sequence</Button>
+    </DialogTrigger>
+    <DialogContent motion="scale">
+      <DialogTitle>Run deployment sequence</DialogTitle>
+      <DialogDescription>Confirm runtime changes.</DialogDescription>
+    </DialogContent>
+  </Dialog>
+
+  <Drawer>
+    <DrawerTrigger asChild>
+      <Button variant="ghost">Calibrate</Button>
+    </DrawerTrigger>
+    <DrawerContent side="right">
+      <DrawerTitle>Calibrate runtime</DrawerTitle>
+    </DrawerContent>
+  </Drawer>
+
+  <Popover>
+    <PopoverTrigger asChild>
+      <Button aria-label="Runtime profile summary">Inspect</Button>
+    </PopoverTrigger>
+    <PopoverContent>
+      <PopoverTitle>Linear density profile</PopoverTitle>
+    </PopoverContent>
+  </Popover>
+
+  <Toast open>
+    <ToastTitle>Sequence queued</ToastTitle>
+  </Toast>
+  <ToastViewport />
+</ToastProvider>
+```
 
 ## LazyDesign Refusals
 
