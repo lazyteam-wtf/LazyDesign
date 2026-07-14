@@ -793,6 +793,202 @@
   min-width: 0;
 }
 
+.ld-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: var(--ld-component-overlay-z-index);
+  background: var(--ld-component-overlay-backdrop);
+}
+
+.ld-overlay[data-state="open"] {
+  animation: ld-overlay-in var(--ld-motion-duration-fast) var(--ld-motion-easing-standard);
+}
+
+.ld-overlay[data-state="closed"] {
+  animation: ld-overlay-out var(--ld-motion-duration-fast) var(--ld-motion-easing-exit);
+}
+
+.ld-dialog,
+.ld-drawer {
+  z-index: calc(var(--ld-component-overlay-z-index) + 1);
+  display: grid;
+  gap: var(--ld-component-overlay-body-gap);
+  border: 1px solid var(--ld-component-overlay-border);
+  background: var(--ld-component-overlay-background);
+  color: var(--ld-component-overlay-foreground);
+  box-shadow: var(--ld-component-overlay-shadow);
+  padding: var(--ld-component-overlay-padding);
+}
+
+.ld-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: min(calc(100vw - var(--ld-space-8)), var(--ld-dialog-width, var(--ld-component-dialog-width-md)));
+  max-height: calc(100vh - var(--ld-space-8));
+  overflow: auto;
+  border-radius: var(--ld-component-overlay-radius);
+  transform: translate(-50%, -50%);
+}
+
+.ld-dialog[data-size="sm"] {
+  --ld-dialog-width: var(--ld-component-dialog-width-sm);
+}
+
+.ld-dialog[data-size="lg"] {
+  --ld-dialog-width: var(--ld-component-dialog-width-lg);
+}
+
+.ld-drawer {
+  position: fixed;
+  overflow: auto;
+}
+
+.ld-drawer[data-side="right"],
+.ld-drawer[data-side="left"] {
+  top: 0;
+  bottom: 0;
+  width: min(100vw, var(--ld-drawer-width, var(--ld-component-drawer-width-md)));
+}
+
+.ld-drawer[data-side="right"] {
+  right: 0;
+  border-radius: var(--ld-component-overlay-radius) 0 0 var(--ld-component-overlay-radius);
+}
+
+.ld-drawer[data-side="left"] {
+  left: 0;
+  border-radius: 0 var(--ld-component-overlay-radius) var(--ld-component-overlay-radius) 0;
+}
+
+.ld-drawer[data-side="top"],
+.ld-drawer[data-side="bottom"] {
+  right: 0;
+  left: 0;
+  height: min(100vh, var(--ld-drawer-height, var(--ld-component-drawer-height-md)));
+}
+
+.ld-drawer[data-side="top"] {
+  top: 0;
+  border-radius: 0 0 var(--ld-component-overlay-radius) var(--ld-component-overlay-radius);
+}
+
+.ld-drawer[data-side="bottom"] {
+  bottom: 0;
+  border-radius: var(--ld-component-overlay-radius) var(--ld-component-overlay-radius) 0 0;
+}
+
+.ld-drawer[data-size="sm"] {
+  --ld-drawer-width: var(--ld-component-drawer-width-sm);
+  --ld-drawer-height: var(--ld-component-drawer-height-sm);
+}
+
+.ld-drawer[data-size="lg"] {
+  --ld-drawer-width: var(--ld-component-drawer-width-lg);
+  --ld-drawer-height: var(--ld-component-drawer-height-lg);
+}
+
+.ld-overlay__header {
+  display: grid;
+  gap: var(--ld-component-overlay-header-gap);
+  min-width: 0;
+  padding-inline-end: var(--ld-space-6);
+}
+
+.ld-overlay__footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--ld-component-overlay-footer-gap);
+  min-width: 0;
+}
+
+.ld-overlay__title {
+  margin: 0;
+  color: var(--ld-component-text-primary);
+  font: var(--ld-typography-heading-md);
+  letter-spacing: 0;
+}
+
+.ld-overlay__description {
+  margin: 0;
+  color: var(--ld-component-text-muted);
+  font: var(--ld-typography-body-sm);
+  letter-spacing: 0;
+}
+
+.ld-overlay__close {
+  position: absolute;
+  top: var(--ld-space-3);
+  right: var(--ld-space-3);
+  display: inline-grid;
+  place-items: center;
+  width: var(--ld-component-control-height-sm);
+  height: var(--ld-component-control-height-sm);
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: var(--ld-component-control-radius);
+  background: transparent;
+  color: var(--ld-component-icon-muted);
+  cursor: pointer;
+  transition:
+    background-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    border-color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard),
+    color var(--ld-motion-duration-fast) var(--ld-motion-easing-standard);
+}
+
+.ld-overlay__close:hover {
+  border-color: var(--ld-component-control-border);
+  background: var(--ld-component-control-hover);
+  color: var(--ld-component-icon-foreground);
+}
+
+.ld-dialog:focus-visible,
+.ld-drawer:focus-visible,
+.ld-overlay__close:focus-visible {
+  outline: none;
+  box-shadow: var(--ld-component-control-focus-ring);
+}
+
+.ld-dialog[data-state="open"][data-motion="scale"] {
+  animation: ld-dialog-scale-in var(--ld-motion-duration-normal) var(--ld-motion-easing-enter);
+}
+
+.ld-dialog[data-state="open"][data-motion="shift"] {
+  animation: ld-dialog-shift-in var(--ld-motion-duration-normal) var(--ld-motion-easing-enter);
+}
+
+.ld-dialog[data-state="open"][data-motion="fade"],
+.ld-drawer[data-state="open"][data-motion="fade"] {
+  animation: ld-overlay-content-fade-in var(--ld-motion-duration-fast) var(--ld-motion-easing-standard);
+}
+
+.ld-dialog[data-state="closed"]:not([data-motion="none"]),
+.ld-drawer[data-state="closed"]:not([data-motion="none"]) {
+  animation: ld-overlay-content-out var(--ld-motion-duration-fast) var(--ld-motion-easing-exit);
+}
+
+.ld-drawer[data-state="open"][data-motion="slide"][data-side="right"] {
+  animation: ld-drawer-right-in var(--ld-motion-duration-emphasized) var(--ld-motion-easing-enter);
+}
+
+.ld-drawer[data-state="open"][data-motion="slide"][data-side="left"] {
+  animation: ld-drawer-left-in var(--ld-motion-duration-emphasized) var(--ld-motion-easing-enter);
+}
+
+.ld-drawer[data-state="open"][data-motion="slide"][data-side="top"] {
+  animation: ld-drawer-top-in var(--ld-motion-duration-emphasized) var(--ld-motion-easing-enter);
+}
+
+.ld-drawer[data-state="open"][data-motion="slide"][data-side="bottom"] {
+  animation: ld-drawer-bottom-in var(--ld-motion-duration-emphasized) var(--ld-motion-easing-enter);
+}
+
+.ld-dialog[data-motion="none"],
+.ld-drawer[data-motion="none"] {
+  animation: none;
+}
+
 .ld-tooltip {
   z-index: 60;
   max-width: min(280px, calc(100vw - var(--ld-space-8)));
@@ -889,6 +1085,118 @@ code.ld-code {
   height: 1em;
 }
 
+@keyframes ld-overlay-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ld-overlay-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes ld-overlay-content-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ld-overlay-content-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes ld-dialog-scale-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 6px)) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes ld-dialog-shift-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 12px));
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@keyframes ld-drawer-right-in {
+  from {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ld-drawer-left-in {
+  from {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes ld-drawer-top-in {
+  from {
+    opacity: 0;
+    transform: translateY(-28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ld-drawer-bottom-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes ld-spin {
   to {
     transform: rotate(360deg);
@@ -926,7 +1234,10 @@ code.ld-code {
   .ld-select__trigger,
   .ld-switch,
   .ld-switch__thumb,
-  .ld-tabs__trigger {
+  .ld-tabs__trigger,
+  .ld-overlay,
+  .ld-dialog,
+  .ld-drawer {
     transition-duration: var(--ld-motion-duration-instant);
     animation-duration: var(--ld-motion-duration-instant);
   }
@@ -951,7 +1262,10 @@ code.ld-code {
   .ld-tooltip[data-state="delayed-open"],
   .ld-tooltip[data-state="closed"],
   .ld-select__content[data-state="open"],
-  .ld-select__content[data-state="closed"] {
+  .ld-select__content[data-state="closed"],
+  .ld-overlay[data-state],
+  .ld-dialog[data-state],
+  .ld-drawer[data-state] {
     animation-duration: var(--ld-motion-duration-instant);
   }
 }

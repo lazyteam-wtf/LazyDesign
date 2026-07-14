@@ -24,6 +24,39 @@ export {
 } from "./Card";
 export { Code, type CodeProps } from "./Code";
 export {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+  type DialogContentProps,
+  type DialogOverlayProps,
+  type LazyDialogMotion,
+  type LazyDialogSize,
+} from "./Dialog";
+export {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger,
+  type DrawerContentProps,
+  type DrawerOverlayProps,
+  type LazyDrawerMotion,
+  type LazyDrawerSide,
+  type LazyDrawerSize,
+} from "./Drawer";
+export {
   Field,
   FieldDescription,
   FieldError,
