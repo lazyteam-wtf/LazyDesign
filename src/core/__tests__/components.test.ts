@@ -17,6 +17,14 @@ describe("form component tokens", () => {
       expect(theme.vars["--ld-component-checkbox-background-checked"]).toBeTruthy();
       expect(theme.vars["--ld-component-switch-track-background-checked"]).toBeTruthy();
       expect(theme.vars["--ld-component-select-trigger-background"]).toBeTruthy();
+      expect(theme.vars["--ld-component-overlay-backdrop"]).toBeTruthy();
+      expect(theme.vars["--ld-component-overlay-background"]).toBeTruthy();
+      expect(theme.vars["--ld-component-overlay-z-index"]).toBeTruthy();
+      expect(theme.vars["--ld-component-dialog-width-md"]).toBeTruthy();
+      expect(theme.vars["--ld-component-drawer-width-md"]).toBeTruthy();
+      expect(theme.vars["--ld-component-popover-width-md"]).toBeTruthy();
+      expect(theme.vars["--ld-component-toast-width"]).toBeTruthy();
+      expect(theme.vars["--ld-component-toast-success-border"]).toBeTruthy();
     }
   });
 });

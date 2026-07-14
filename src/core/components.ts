@@ -166,6 +166,45 @@ export const lazyComponentTokenVars = {
     paddingX: "--ld-component-tooltip-padding-x",
     paddingY: "--ld-component-tooltip-padding-y",
   },
+  overlay: {
+    backdrop: "--ld-component-overlay-backdrop",
+    background: "--ld-component-overlay-background",
+    foreground: "--ld-component-overlay-foreground",
+    border: "--ld-component-overlay-border",
+    radius: "--ld-component-overlay-radius",
+    shadow: "--ld-component-overlay-shadow",
+    padding: "--ld-component-overlay-padding",
+    headerGap: "--ld-component-overlay-header-gap",
+    bodyGap: "--ld-component-overlay-body-gap",
+    footerGap: "--ld-component-overlay-footer-gap",
+    zIndex: "--ld-component-overlay-z-index",
+  },
+  dialog: {
+    widthSm: "--ld-component-dialog-width-sm",
+    widthMd: "--ld-component-dialog-width-md",
+    widthLg: "--ld-component-dialog-width-lg",
+  },
+  drawer: {
+    widthSm: "--ld-component-drawer-width-sm",
+    widthMd: "--ld-component-drawer-width-md",
+    widthLg: "--ld-component-drawer-width-lg",
+    heightSm: "--ld-component-drawer-height-sm",
+    heightMd: "--ld-component-drawer-height-md",
+    heightLg: "--ld-component-drawer-height-lg",
+  },
+  popover: {
+    widthSm: "--ld-component-popover-width-sm",
+    widthMd: "--ld-component-popover-width-md",
+    arrowSize: "--ld-component-popover-arrow-size",
+  },
+  toast: {
+    width: "--ld-component-toast-width",
+    background: "--ld-component-toast-background",
+    foreground: "--ld-component-toast-foreground",
+    border: "--ld-component-toast-border",
+    successBorder: "--ld-component-toast-success-border",
+    dangerBorder: "--ld-component-toast-danger-border",
+  },
   icon: {
     foreground: "--ld-component-icon-foreground",
     muted: "--ld-component-icon-muted",
@@ -194,6 +233,11 @@ export const lazyComponentTokens = {
   card: toRefs(lazyComponentTokenVars.card),
   tabs: toRefs(lazyComponentTokenVars.tabs),
   tooltip: toRefs(lazyComponentTokenVars.tooltip),
+  overlay: toRefs(lazyComponentTokenVars.overlay),
+  dialog: toRefs(lazyComponentTokenVars.dialog),
+  drawer: toRefs(lazyComponentTokenVars.drawer),
+  popover: toRefs(lazyComponentTokenVars.popover),
+  toast: toRefs(lazyComponentTokenVars.toast),
   icon: toRefs(lazyComponentTokenVars.icon),
   code: toRefs(lazyComponentTokenVars.code),
 } as const;
@@ -353,6 +397,11 @@ export type LazyComponentTheme = {
     paddingX: string;
     paddingY: string;
   };
+  overlay: Record<keyof typeof lazyComponentTokenVars.overlay, string>;
+  dialog: Record<keyof typeof lazyComponentTokenVars.dialog, string>;
+  drawer: Record<keyof typeof lazyComponentTokenVars.drawer, string>;
+  popover: Record<keyof typeof lazyComponentTokenVars.popover, string>;
+  toast: Record<keyof typeof lazyComponentTokenVars.toast, string>;
   icon: {
     foreground: string;
     muted: string;
@@ -533,6 +582,11 @@ export function createComponentTheme(input: LazyComponentThemeInput): LazyCompon
       paddingX: vars[lazyComponentTokenVars.tooltip.paddingX],
       paddingY: vars[lazyComponentTokenVars.tooltip.paddingY],
     },
+    overlay: pickComponentValues(vars, lazyComponentTokenVars.overlay),
+    dialog: pickComponentValues(vars, lazyComponentTokenVars.dialog),
+    drawer: pickComponentValues(vars, lazyComponentTokenVars.drawer),
+    popover: pickComponentValues(vars, lazyComponentTokenVars.popover),
+    toast: pickComponentValues(vars, lazyComponentTokenVars.toast),
     icon: {
       foreground: vars[lazyComponentTokenVars.icon.foreground],
       muted: vars[lazyComponentTokenVars.icon.muted],
@@ -703,6 +757,38 @@ export function createComponentVars(input: LazyComponentThemeInput): LazyCssVars
     [lazyComponentTokenVars.tooltip.shadow]: `0 8px 24px color-mix(in srgb, var(${lazyTokenVars.color.inverseSurface}), transparent 84%)`,
     [lazyComponentTokenVars.tooltip.paddingX]: `var(${lazyTokenVars.space[2]})`,
     [lazyComponentTokenVars.tooltip.paddingY]: `var(${lazyTokenVars.space[1]})`,
+    [lazyComponentTokenVars.overlay.backdrop]: `color-mix(in srgb, var(${lazyTokenVars.color.onSurface}), transparent 72%)`,
+    [lazyComponentTokenVars.overlay.background]: `var(${lazyTokenVars.color.surfaceContainer})`,
+    [lazyComponentTokenVars.overlay.foreground]: `var(${lazyTokenVars.color.onSurface})`,
+    [lazyComponentTokenVars.overlay.border]: `var(${lazyTokenVars.color.outlineVariant})`,
+    [lazyComponentTokenVars.overlay.radius]:
+      style === "material" || style === "expressive"
+        ? `var(${lazyTokenVars.shape.cornerLarge})`
+        : `var(${lazyTokenVars.shape.cornerMedium})`,
+    [lazyComponentTokenVars.overlay.shadow]: `0 16px 48px color-mix(in srgb, var(${lazyTokenVars.color.onSurface}), transparent 84%)`,
+    [lazyComponentTokenVars.overlay.padding]: density === "compact" ? `var(${lazyTokenVars.space[4]})` : `var(${lazyTokenVars.space[6]})`,
+    [lazyComponentTokenVars.overlay.headerGap]: density === "compact" ? `var(${lazyTokenVars.space[1]})` : `var(${lazyTokenVars.space[2]})`,
+    [lazyComponentTokenVars.overlay.bodyGap]: density === "compact" ? `var(${lazyTokenVars.space[3]})` : `var(${lazyTokenVars.space[4]})`,
+    [lazyComponentTokenVars.overlay.footerGap]: density === "compact" ? `var(${lazyTokenVars.space[2]})` : `var(${lazyTokenVars.space[3]})`,
+    [lazyComponentTokenVars.overlay.zIndex]: "60",
+    [lazyComponentTokenVars.dialog.widthSm]: "360px",
+    [lazyComponentTokenVars.dialog.widthMd]: "520px",
+    [lazyComponentTokenVars.dialog.widthLg]: "720px",
+    [lazyComponentTokenVars.drawer.widthSm]: "320px",
+    [lazyComponentTokenVars.drawer.widthMd]: "420px",
+    [lazyComponentTokenVars.drawer.widthLg]: "560px",
+    [lazyComponentTokenVars.drawer.heightSm]: "320px",
+    [lazyComponentTokenVars.drawer.heightMd]: "420px",
+    [lazyComponentTokenVars.drawer.heightLg]: "560px",
+    [lazyComponentTokenVars.popover.widthSm]: "220px",
+    [lazyComponentTokenVars.popover.widthMd]: "300px",
+    [lazyComponentTokenVars.popover.arrowSize]: "10px",
+    [lazyComponentTokenVars.toast.width]: "360px",
+    [lazyComponentTokenVars.toast.background]: `var(${lazyTokenVars.color.surfaceContainer})`,
+    [lazyComponentTokenVars.toast.foreground]: `var(${lazyTokenVars.color.onSurface})`,
+    [lazyComponentTokenVars.toast.border]: `var(${lazyTokenVars.color.outlineVariant})`,
+    [lazyComponentTokenVars.toast.successBorder]: `var(${lazyTokenVars.color.primary})`,
+    [lazyComponentTokenVars.toast.dangerBorder]: `var(${lazyTokenVars.color.error})`,
     [lazyComponentTokenVars.icon.foreground]: `var(${lazyTokenVars.color.onSurface})`,
     [lazyComponentTokenVars.icon.muted]: `var(${lazyTokenVars.color.onSurfaceVariant})`,
     [lazyComponentTokenVars.icon.primary]: `var(${lazyTokenVars.color.primary})`,
@@ -748,6 +834,10 @@ function getControlRadius(style: LazyDesignStyle) {
 
 function mixWith(base: string, overlay: string, amount: number) {
   return `color-mix(in srgb, ${base}, ${overlay} ${amount}%)`;
+}
+
+function pickComponentValues<T extends Record<string, string>>(vars: LazyCssVars, tokenVars: T) {
+  return Object.fromEntries(Object.entries(tokenVars).map(([key, value]) => [key, vars[value]])) as Record<keyof T, string>;
 }
 
 function toRefs<T extends Record<string, string>>(vars: T) {
