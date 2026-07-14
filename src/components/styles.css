@@ -989,6 +989,52 @@
   animation: none;
 }
 
+.ld-popover {
+  z-index: calc(var(--ld-component-overlay-z-index) + 2);
+  display: grid;
+  gap: var(--ld-component-overlay-body-gap);
+  width: var(--ld-popover-width, var(--ld-component-popover-width-md));
+  max-width: calc(100vw - var(--ld-space-8));
+  border: 1px solid var(--ld-component-overlay-border);
+  border-radius: var(--ld-component-overlay-radius);
+  background: var(--ld-component-overlay-background);
+  color: var(--ld-component-overlay-foreground);
+  box-shadow: var(--ld-component-overlay-shadow);
+  padding: var(--ld-space-3);
+  transform-origin: var(--radix-popover-content-transform-origin);
+}
+
+.ld-popover[data-size="sm"] {
+  --ld-popover-width: var(--ld-component-popover-width-sm);
+}
+
+.ld-popover[data-state="open"][data-motion="scale"] {
+  animation: ld-popover-scale-in var(--ld-motion-duration-fast) var(--ld-motion-easing-enter);
+}
+
+.ld-popover[data-state="open"][data-motion="shift"] {
+  animation: ld-popover-shift-in var(--ld-motion-duration-fast) var(--ld-motion-easing-enter);
+}
+
+.ld-popover[data-state="closed"]:not([data-motion="none"]) {
+  animation: ld-overlay-content-out var(--ld-motion-duration-fast) var(--ld-motion-easing-exit);
+}
+
+.ld-popover[data-motion="none"] {
+  animation: none;
+}
+
+.ld-popover:focus-visible {
+  outline: none;
+  box-shadow: var(--ld-component-control-focus-ring);
+}
+
+.ld-popover__arrow {
+  width: var(--ld-component-popover-arrow-size);
+  height: var(--ld-component-popover-arrow-size);
+  fill: var(--ld-component-overlay-background);
+}
+
 .ld-tooltip {
   z-index: 60;
   max-width: min(280px, calc(100vw - var(--ld-space-8)));
@@ -1197,6 +1243,30 @@ code.ld-code {
   }
 }
 
+@keyframes ld-popover-scale-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes ld-popover-shift-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes ld-spin {
   to {
     transform: rotate(360deg);
@@ -1237,7 +1307,8 @@ code.ld-code {
   .ld-tabs__trigger,
   .ld-overlay,
   .ld-dialog,
-  .ld-drawer {
+  .ld-drawer,
+  .ld-popover {
     transition-duration: var(--ld-motion-duration-instant);
     animation-duration: var(--ld-motion-duration-instant);
   }
@@ -1265,7 +1336,8 @@ code.ld-code {
   .ld-select__content[data-state="closed"],
   .ld-overlay[data-state],
   .ld-dialog[data-state],
-  .ld-drawer[data-state] {
+  .ld-drawer[data-state],
+  .ld-popover[data-state] {
     animation-duration: var(--ld-motion-duration-instant);
   }
 }

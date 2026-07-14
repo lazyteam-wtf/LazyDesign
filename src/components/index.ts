@@ -81,6 +81,21 @@ export {
 export { getIcon, listIcons, registerIcon, lazyDefaultIcons } from "./icon-registry";
 export { Input, type InputProps, type LazyInputState } from "./Input";
 export {
+  Popover,
+  PopoverAnchor,
+  PopoverArrow,
+  PopoverClose,
+  PopoverContent,
+  PopoverDescription,
+  PopoverPortal,
+  PopoverTitle,
+  PopoverTrigger,
+  type LazyPopoverMotion,
+  type LazyPopoverSize,
+  type PopoverArrowProps,
+  type PopoverContentProps,
+} from "./Popover";
+export {
   Select,
   SelectContent,
   SelectGroup,
